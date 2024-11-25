@@ -1,23 +1,27 @@
 import java.util.ArrayList;
 
 public class Transaksi {
-    private static int idCounter = 1;
-    private int transaksiId;
-    private ArrayList<String> barang;
-    private String statusTransaksi;
+    private ArrayList<Barang> barangDibeli;
+    private String customer;
 
-    public Transaksi(ArrayList<String> barang) {
-        this.transaksiId = idCounter++;
-        this.barang = barang;
-        this.statusTransaksi = "Invoice Selesai"; // Status default untuk transaksi yang berhasil
+    public Transaksi(String customer, ArrayList<Barang> barangDibeli) {
+        this.customer = customer;
+        this.barangDibeli = new ArrayList<>(barangDibeli);
     }
 
-    public void tampilkanDetailTransaksi() {
-        System.out.println("Transaksi ID: " + transaksiId);
-        System.out.println("Status Transaksi: " + statusTransaksi);
-        System.out.println("Barang dalam Transaksi:");
-        for (String b : barang) {
-            System.out.println("- " + b);
+    public void tampilkanTransaksi() {
+        System.out.println("Transaksi oleh: " + customer);
+        System.out.println("Barang yang Dibeli:");
+        for (Barang barang : barangDibeli) {
+            System.out.println(barang);
         }
+    }
+
+    public ArrayList<Barang> getBarangDibeli() {
+        return barangDibeli;
+    }
+
+    public String getCustomer() {
+        return customer;
     }
 }
