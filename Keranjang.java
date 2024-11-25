@@ -1,30 +1,37 @@
 import java.util.ArrayList;
 
 public class Keranjang {
-    private ArrayList<String> daftarBarang;
+    private ArrayList<Barang> daftarBarang;
 
     public Keranjang() {
         this.daftarBarang = new ArrayList<>();
     }
 
-    public void tambahBarang(String barang) {
+    public void tambahBarang(Barang barang) {
         daftarBarang.add(barang);
-        System.out.println(barang + " telah ditambahkan ke keranjang.");
+        System.out.println(barang.getNama() + " berhasil ditambahkan ke keranjang.");
     }
 
-    public void tampilkanBarang() {
-        System.out.println("Barang di keranjang:");
-        for (String barang : daftarBarang) {
-            System.out.println("- " + barang);
+    public void hapusBarang(Barang barang) {
+        if (daftarBarang.remove(barang)) {
+            System.out.println(barang.getNama() + " berhasil dihapus dari keranjang.");
+        } else {
+            System.out.println(barang.getNama() + " tidak ditemukan di keranjang.");
         }
     }
 
-    public ArrayList<String> getBarang() {
-        return daftarBarang;
+    public void lihatBarang() {
+        if (daftarBarang.isEmpty()) {
+            System.out.println("Keranjang kosong.");
+        } else {
+            System.out.println("Daftar Barang di Keranjang:");
+            for (Barang barang : daftarBarang) {
+                System.out.println(barang);
+            }
+        }
     }
 
-    public void kosongkanKeranjang() {
-        daftarBarang.clear();
-        System.out.println("Keranjang telah dikosongkan.");
+    public ArrayList<Barang> getDaftarBarang() {
+        return daftarBarang;
     }
 }
