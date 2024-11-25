@@ -3,59 +3,54 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
-        // Meminta nama pelanggan dari pengguna
-        System.out.print("Masukkan nama pelanggan: ");
-        String namaPelanggan = scanner.nextLine();
-
-        // Membuat objek CustomerDriver berdasarkan input pengguna
-        CustomerDriver customer = new CustomerDriver(namaPelanggan, "CUST123");
         Keranjang keranjang = new Keranjang();
 
-        boolean selesai = false;
+        System.out.println("Selamat datang di sistem belanja!");
 
-        while (!selesai) {
-            System.out.println("\n=== Sistem Keranjang dan Transaksi ===");
+        while (true) {
+            System.out.println("\nPilih menu:");
             System.out.println("1. Tambah Barang ke Keranjang");
-            System.out.println("2. Lihat Keranjang");
-            System.out.println("3. Checkout");
-            System.out.println("4. Lihat Riwayat Transaksi");
+            System.out.println("2. Hapus Barang dari Keranjang");
+            System.out.println("3. Lihat Keranjang");
+            System.out.println("4. Lakukan Transaksi");
             System.out.println("5. Keluar");
-            System.out.print("Pilih opsi: ");
+            System.out.print("Pilihan: ");
+
             int pilihan = scanner.nextInt();
             scanner.nextLine(); // Consume newline
 
             switch (pilihan) {
                 case 1:
                     System.out.print("Masukkan nama barang: ");
-                    String barang = scanner.nextLine();
-                    keranjang.tambahBarang(barang);
+                    String nama = scanner.nextLine();
+                    System.out.print("Masukkan harga barang: ");
+                    double harga = scanner.nextDouble();
+                    keranjang.tambahBarang(new Barang(nama, harga));
                     break;
                 case 2:
-                    keranjang.tampilkanBarang();
+                    System.out.print("Masukkan nama barang yang ingin dihapus: ");
+                    String namaHapus = scanner.nextLine();
+                    keranjang.hapusBarang(new Barang(namaHapus, 0));
                     break;
                 case 3:
-                    if (keranjang.getBarang().isEmpty()) {
-                        System.out.println("Keranjang kosong, tidak dapat checkout.");
-                    } else {
-                        Transaksi transaksi = new Transaksi(keranjang.getBarang());
-                        customer.tambahTransaksi(transaksi);
-                        keranjang.kosongkanKeranjang();
-                        System.out.println("Checkout berhasil! Transaksi telah selesai.");
-                    }
+                    keranjang.lihatBarang();
                     break;
                 case 4:
-                    customer.tampilkanRiwayatTransaksi();
+                    System.out.print("Masukkan nama customer: ");
+                    String customer = scanner.nextLine();
+                    Transaksi transaksi = new Transaksi(customer, keranjang.getDaftarBarang());
+                    System.out.print("Pilih metode pembayaran (QRIS/Bank Transfer/COD): ");
+                    String metodePembayaran = scanner.nextLine();
+                    Pembayaran.prosesPembayaran(transaksi, metodePembayaran);
                     break;
                 case 5:
-                    selesai = true;
-                    System.out.println("Terima kasih telah menggunakan sistem ini.");
-                    break;
+                    System.out.println("Terima kasih telah menggunakan sistem belanja.");
+                    scanner.close(); // Menutup scanner sebelum keluar
+                    return;
                 default:
-                    System.out.println("Pilihan tidak valid. Silakan coba lagi.");
+                    System.out.println("Pilihan tidak valid.");
             }
         }
-
-        scanner.close();
     }
 }
+
