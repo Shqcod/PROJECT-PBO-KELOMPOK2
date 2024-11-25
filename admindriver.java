@@ -1,36 +1,60 @@
-public class AdminDriver extends Driver {
+import java.util.ArrayList;
+
+public class AdminDriver {
+    private Admin akun;
     private ListBarang listBarang;
     private ArrayList<Transaksi> listTransaksi;
 
-    public AdminDriver(Akun akun) {
+    public AdminDriver(Admin akun, ListBarang listBarang) {
         this.akun = akun;
-        this.listBarang = new ListBarang();
+        this.listBarang = listBarang;
         this.listTransaksi = new ArrayList<>();
     }
 
     public void tambahBarang(Barang barang) {
-        listBarang.addBarang(barang);
-        System.out.println("Barang berhasil ditambahkan.");
+        listBarang.tambahBarang(barang);
     }
 
-    public void hapusBarang(String idBarang) {
-        listBarang.removeBarang(idBarang);
-        System.out.println("Barang berhasil dihapus.");
+    public void hapusBarang(String namaBarang) {
+        Barang barang = listBarang.cariBarang(namaBarang);
+        if (barang != null) {
+            listBarang.hapusBarang(namaBarang);
+            System.out.println("Barang " + namaBarang + " berhasil dihapus.");
+        } else {
+            System.out.println("Barang tidak ditemukan.");
+        }
     }
 
-    public void editBarang(String idBarang, Barang barangBaru) {
-        listBarang.updateBarang(idBarang, barangBaru);
-        System.out.println("Barang berhasil diedit.");
+    public void editBarang(Barang barangLama, Barang barangBaru) {
+        listBarang.hapusBarang(barangLama.getNama());
+        listBarang.tambahBarang(barangBaru);
     }
 
-    public void terimaTransaksi(Transaksi transaksi) {
-        listTransaksi.add(transaksi);
-        System.out.println("Transaksi diterima.");
+    public void lihatTransaksi() {
+        if (listTransaksi.isEmpty()) {
+            System.out.println("Tidak ada transaksi yang tersedia.");
+        } else {
+            for (Transaksi transaksi : listTransaksi) {
+                System.out.println(transaksi);
+            }
+        }
     }
 
-    @Override
-    public void login() {
-        System.out.println("Admin berhasil login.");
+    public Transaksi cariTransaksi(String idTransaksi) {
+        for (Transaksi transaksi : listTransaksi) {
+            if (transaksi.getId().equalsIgnoreCase(idTransaksi)) {
+                return transaksi;
+            }
+        }
+        return null; // Transaksi tidak ditemukan
+    }
+
+    public void terimaTransaksi(Transaksi t) {
+        if (listTransaksi.contains(t)) {
+            System.out.println("Transaksi dengan ID " + t.getId() + " telah diterima.");
+            listTransaksi.remove(t);
+        } else {
+            System.out.println("Transaksi tidak ditemukan.");
+        }
     }
 }
-
