@@ -10,34 +10,90 @@ public class MenuBarang {
 
         public MenuTambahBarang(Frame owner, BarangTablePanel barangTablePanel, List<Barang> listBarang) {
             super(owner, "Tambah Barang", true);
-            setLayout(new GridLayout(5, 2, 10, 10));
+            setLayout(new GridBagLayout());
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.insets = new Insets(5, 5, 5, 5);
             setSize(400, 300);
             setLocationRelativeTo(null);
 
-            add(new JLabel("ID"));
+            JLabel labelID = new JLabel("ID: ");
+            gbc.gridx = 0; 
+            gbc.gridy = 0;
+            gbc.anchor = GridBagConstraints.WEST;
+            add(labelID, gbc);
+
             JTextField fieldId = new JTextField();
-            add(fieldId);
+            gbc.gridx = 1;
+            gbc.gridy = 0;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            add(fieldId, gbc);
+            
+            JLabel labelNama = new JLabel("Nama Barang:");
+            gbc.gridx = 0; 
+            gbc.gridy = 1;
+            gbc.fill = GridBagConstraints.NONE;
+            add(labelNama, gbc);
 
-            add(new JLabel("Nama Barang:"));
-            JTextField fieldNama = new JTextField();
-            add(fieldNama);
+            JTextField fieldNama = new JTextField(20);
+            // fieldNama.setMaximumSize(new Dimension(100,25));
+            gbc.gridx = 1;
+            gbc. gridy = 1;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            add(fieldNama,gbc);
 
-            add(new JLabel("Kategori:"));
-            JTextField fieldKategori = new JTextField();
-            add(fieldKategori);
+            JLabel labelKategori = new JLabel("Kategori:");
+            gbc.gridx = 0;
+            gbc.gridy = 2;
+            add(labelKategori, gbc);
 
-            add(new JLabel("Harga:"));
-            JTextField fieldHarga = new JTextField();
-            add(fieldHarga);
+            JTextField fieldKategori = new JTextField(20);
+            gbc.gridx = 1;
+            gbc.gridy = 2;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            add(fieldKategori, gbc);
 
-            add(new JLabel("Stok:"));
-            JTextField fieldStok = new JTextField();
-            add(fieldStok);
+            JLabel labelHarga = new JLabel("Harga:");
+            gbc.gridx = 0;
+            gbc.gridy = 3;
+            add(labelHarga, gbc);
+
+            JTextField fieldHarga = new JTextField(20);
+            gbc.gridx = 1;
+            gbc.gridy = 3;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            add(fieldHarga, gbc);
+
+            JLabel labelStok = new JLabel("Stok:");
+            gbc.gridx = 0;
+            gbc.gridy = 4;
+            add(labelStok, gbc);
+
+            JTextField fieldStok = new JTextField(20);
+            gbc.gridx = 1;
+            gbc.gridy = 4;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            add(fieldStok, gbc);
 
             JButton btnTambah = new JButton("Tambah");
             btnTambah.addActionListener(e -> {
                 try { // Tambahkan barang ke tabel
                     int id = Integer.parseInt(fieldId.getText());
+
+                      // Cek apakah ID sudah ada
+                boolean idExists = false;
+                for (Barang barang : listBarang) {
+                    if (barang.getId() == id) {
+                        idExists = true;
+                        break;
+                    }
+                }
+
+                if (idExists) {
+                    // Jika ID sudah ada, tampilkan peringatan
+                    JOptionPane.showMessageDialog(owner, "ID sudah ada. Silakan masukkan ID yang lain.");
+                    return; // Jangan lanjutkan jika ID duplikat
+                }
+
                     String nama = fieldNama.getText();
                     String kategori = fieldKategori.getText();
                     double harga = Double.parseDouble(fieldHarga.getText());
@@ -54,68 +110,113 @@ public class MenuBarang {
                 }
                
             });
-            add(btnTambah);
 
             JButton btnBatal = new JButton("Batal");
             btnBatal.addActionListener(e -> dispose());
-            add(btnBatal);
+
+            JPanel buttonPanel = new JPanel();
+            buttonPanel.add(btnTambah);
+            buttonPanel.add(btnBatal);
+
+            gbc.gridx = 0;
+            gbc.gridy = 5;
+            gbc.gridwidth = 2;
+            gbc.anchor = GridBagConstraints.CENTER;
+            add(buttonPanel, gbc);
+
+            pack();
         }
     }
 
     public static class MenuHapusBarang extends JDialog {
         private List<Barang> listBarang;
-        
         public MenuHapusBarang(Frame owner, BarangTablePanel barangTablePanel, List<Barang> listBarang) {
             super(owner, "Hapus Barang", true);
-            setLayout(new GridLayout(2, 2, 10, 10));
+            setLayout(new GridBagLayout());
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.insets = new Insets(5, 5, 5, 5);
             setSize(300, 150);
-            setLocationRelativeTo(null);  
+            setLocationRelativeTo(null);
+    
+            JLabel labelID = new JLabel("Id Barang: ");
+            gbc.gridx = 0; 
+            gbc.gridy = 0;
+            gbc.anchor = GridBagConstraints.WEST;
+            add(labelID, gbc);
 
-            add(new JLabel("ID Barang:"));
             JTextField fieldId = new JTextField();
-            add(fieldId);
-
+            gbc.gridx = 1;
+            gbc.gridy = 0;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            add(fieldId, gbc);
+    
             JButton btnHapus = new JButton("Hapus");
             btnHapus.addActionListener(e -> {
+                // Step 1: Validasi input ID dari TextField
                 try {
                     int id = Integer.parseInt(fieldId.getText());
                     Barang barangDihapus = null;
-
-                    for (Barang barang : listBarang){
-                        if (barang.getId() == id){
+    
+                    // Cari barang berdasarkan ID
+                    for (Barang barang : listBarang) {
+                        if (barang.getId() == id) {
                             barangDihapus = barang;
                             break;
                         }
                     }
-
+    
                     if (barangDihapus != null) {
-                        listBarang.remove(barangDihapus);
-
-                        ListBarang.saveBarangToFile("barang.txt", listBarang);
-
-                        // Hapus baris dari tabel model
-                    for (int i = 0; i < barangTablePanel.getRowCount(); i++) {
-                        if ((int) barangTablePanel.getValueAt(i, 0) == id) {
-                            barangTablePanel.removeRow(i);
-                            break;
+                        // Step 2: Tampilkan konfirmasi di OptionPane kedua
+                        int konfirmasi = JOptionPane.showConfirmDialog(
+                            owner,
+                            "Data Barang:\n" +
+                            "Nama Barang: " + barangDihapus.getNama() + "\n" +
+                            "Kategori: " + barangDihapus.getKategori() + "\n" +
+                            "Harga: " + barangDihapus.getHarga() + "\n" +
+                            "Stok: " + barangDihapus.getStok() + "\n\n" +
+                            "Apakah Anda yakin ingin menghapus barang ini?",
+                            "Konfirmasi Hapus Barang",
+                            JOptionPane.YES_NO_OPTION
+                        );
+    
+                        if (konfirmasi == JOptionPane.YES_OPTION) {
+                            // Step 3: Hapus barang dari list dan file
+                            listBarang.remove(barangDihapus);
+                            ListBarang.saveBarangToFile("barang.txt", listBarang);
+    
+                            // Hapus barang dari tabel GUI
+                            for (int i = 0; i < barangTablePanel.getRowCount(); i++) {
+                                if ((int) barangTablePanel.getValueAt(i, 0) == id) {
+                                    barangTablePanel.removeRow(i);
+                                    break;
+                                }
+                            }
+    
+                            JOptionPane.showMessageDialog(owner, "Barang berhasil dihapus!");
+                            dispose();
                         }
+                    } else {
+                        JOptionPane.showMessageDialog(owner, "Barang dengan ID " + id + " tidak ditemukan.");
                     }
-
-                    JOptionPane.showMessageDialog(owner, "Barang berhasil dihapus!");
-                    dispose();
-                } else {
-                    JOptionPane.showMessageDialog(owner, "Barang dengan ID " + id + " tidak ditemukan.");
-                }
                 } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(owner, "ID barang tidak valid");
+                    JOptionPane.showMessageDialog(owner, "ID barang tidak valid!");
                 }
-               
             });
-            add(btnHapus);
-
+    
             JButton btnBatal = new JButton("Batal");
             btnBatal.addActionListener(e -> dispose());
-            add(btnBatal);
+
+            JPanel buttonPanel = new JPanel();
+            buttonPanel.add(btnHapus);
+            buttonPanel.add(btnBatal);
+
+            gbc.gridx = 0;
+            gbc.gridy = 1;
+            gbc.gridwidth = 2;
+            gbc.anchor = GridBagConstraints.CENTER;
+            add(buttonPanel, gbc);
+            
+            pack();
         }
     }
 
