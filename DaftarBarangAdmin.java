@@ -68,7 +68,7 @@ public class DaftarBarangAdmin extends JPanel {
         gridTombol.gridx = 2;  // Tombol Edit di sebelah Tombol Tambah
         panelBawah.add(btnEdit, gridTombol);
 
-        btnHapus = FormComponents.createInteractButton("Hapus", null);
+        btnHapus = FormComponents.createInteractButton("Hapus", e -> new MenuBarang.MenuHapusBarang(frame, barangTablePanel, barangList).setVisible(true));
         gridTombol.gridx = 3;  // Tombol Hapus di sebelah Tombol Edit
         panelBawah.add(btnHapus, gridTombol);
 

@@ -61,7 +61,8 @@ public class MenuBarang {
     }
 
     public static class MenuHapusBarang extends JDialog {
-        public MenuHapusBarang(Frame owner, DefaultTableModel tabelModel) {
+        private List<Barang> listBarang;
+        public MenuHapusBarang(Frame owner, BarangTablePanel barangTablePanel, List<Barang> listBarang) {
             super(owner, "Hapus Barang", true);
             setLayout(new GridLayout(2, 2, 10, 10));
             setSize(300, 150);
@@ -72,21 +73,39 @@ public class MenuBarang {
 
             JButton btnHapus = new JButton("Hapus");
             btnHapus.addActionListener(e -> {
-                int id = Integer.parseInt(fieldId.getText());
-                int row = -1;
+                try {
+                    int id = Integer.parseInt(fieldId.getText());
+                    Barang barangDihapus = null;
 
-                for (int i = 0; i < tabelModel.getRowCount(); i++) {
-                    if ((int) tabelModel.getValueAt(i, 0) == id) {
-                        row = i;
-                        break;
+                    for (Barang barang : listBarang){
+                        if (barang.getId() == id){
+                            barangDihapus = barang;
+                            break;
+                        }
                     }
-                }
 
-                if (row != -1) {
-                    tabelModel.removeRow(row);
-                }
+                    if (barangDihapus != null) {
+                        listBarang.remove(barangDihapus);
 
-                dispose();
+                        ListBarang.saveBarangToFile("barang.txt", listBarang);
+
+                        // Hapus baris dari tabel model
+                    for (int i = 0; i < barangTablePanel.getRowCount(); i++) {
+                        if ((int) barangTablePanel.getValueAt(i, 0) == id) {
+                            barangTablePanel.removeRow(i);
+                            break;
+                        }
+                    }
+
+                    JOptionPane.showMessageDialog(owner, "Barang berhasil dihapus!");
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(owner, "Barang dengan ID " + id + " tidak ditemukan.");
+                }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(owner, "ID barang tidak valid");
+                }
+               
             });
             add(btnHapus);
 

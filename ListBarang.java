@@ -49,11 +49,39 @@ public class ListBarang {
         // Simpan daftar barang yang diperbarui ke file
         saveBarangToFile(filePath, listBarang);
     
-        // Informasikan bahwa barang berhasil ditambahkan
-        //System.out.println("Barang berhasil ditambahkan: " + barang.getNama());
+    }
+
+    public static void editBarang(String filePath, List<Barang> listBarang, int idBarang, double hargaBaru, int stokBaru){
+        for (Barang barang : listBarang) {
+            if (barang.getId() == idBarang) {
+                // Perbarui harga dan stok
+                barang.setHarga(hargaBaru);
+                barang.setStok(stokBaru);
+    
+                // Simpan daftar barang ke file
+                saveBarangToFile(filePath, listBarang);
+                System.out.println("Barang berhasil diperbarui: " + barang.getNama());
+                return;
+            }
+        }
     }
     
-    
+    public static void hapusBarang(String filePath, List<Barang> listBarang, int idBarang) {
+        Barang barangDihapus = null;
+        for (Barang barang : listBarang) {
+            if (barang.getId() == idBarang) {
+                barangDihapus = barang;
+                break;
+            }
+        }
+        if (barangDihapus != null) {
+            listBarang.remove(barangDihapus);
+            saveBarangToFile(filePath, listBarang);
+            System.out.println("Barang berhasil dihapus: " + barangDihapus.getNama());
+        } else {
+            System.out.println("Barang dengan ID " + idBarang + " tidak ditemukan.");
+        }
+    }
 
     // Generate ID baru untuk barang
     public static int generateId(List<Barang> listBarang) {

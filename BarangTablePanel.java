@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class BarangTablePanel extends JPanel {
+    private List<Barang> barangList;
     JTable table;
     private DefaultTableModel tableModel;
     private JComboBox<String> categoryComboBox;
@@ -126,5 +127,20 @@ public class BarangTablePanel extends JPanel {
         }
         return -1;  // Jika tidak ada baris yang dipilih
     }
+
+    public int getRowCount() {
+        return tableModel.getRowCount();
+    }
+
+    // Menambahkan metode getValueAt()
+    public Object getValueAt(int rowIndex, int columnIndex) {
+        return tableModel.getValueAt(rowIndex, columnIndex);
+    }
+
+    // Menambahkan metode removeRow()
+    public void removeRow(int rowIndex) {
+        tableModel.removeRow(rowIndex);
+    }
+
 
 }
