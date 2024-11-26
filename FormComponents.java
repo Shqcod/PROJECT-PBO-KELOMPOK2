@@ -106,7 +106,7 @@ public class FormComponents {
         return button;
     }
 
-    public static JButton createInteractButton(String text, Color backgroundColor, ActionListener actionListener){
+    public static JButton createDashboardButton(String text, Color backgroundColor, ActionListener actionListener){
         JButton button = new JButton(text) {
             @Override
             protected void paintComponent(Graphics g) {
@@ -135,6 +135,14 @@ public class FormComponents {
         button.setOpaque(false);
         button.setBorder(new RoundedBorder(10, Color.LIGHT_GRAY));
         button.addActionListener(actionListener);
+        return button;
+    }
+
+    public static JButton createInteractButton(String Text, ActionListener actionListener){
+        JButton button = new JButton(Text);
+        button.addActionListener(actionListener);
+        button.setPreferredSize(new Dimension(85,28));
+        button.setMaximumSize(new Dimension(85,28));
         return button;
     }
 }

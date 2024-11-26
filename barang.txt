@@ -1,0 +1,12 @@
+1,Laptop ASUS VivoBook,7500000.0,10,Elektronik
+2,Smartphone Samsung Galaxy,4500000.0,15,Elektronik
+3,Printer Canon PIXMA,1200000.0,8,Elektronik
+4,Headphone Sony WH-1000XM4,3500000.0,20,Elektronik
+5,TV LG Smart 4K,6500000.0,5,Elektronik
+6,Sepatu Sneakers Nike,950000.0,30,Pakaian
+7,Tas Ransel Eiger,850000.0,15,Pakaian
+8,Power Bank Anker 20000mAh,550000.0,25,Elektronik
+9,Setrika Maspion,200000.0,40,Elektronik
+10,Blender Philips HR,650000.0,20,Dapur
+13,Sampo,10000.0,12,Elektronik
+14,Gunting,5000.0,123,Dapur

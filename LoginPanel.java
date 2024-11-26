@@ -1,5 +1,4 @@
 import javax.swing.*;
-
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -42,7 +41,7 @@ public class LoginPanel extends JPanel {
 
         formPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
-        roleComboBox = new JComboBox<>(new String[]{"Customer", "Admin"});
+        roleComboBox = new JComboBox<>(new String[]{"Admin", "Customer"});
         roleComboBox.setMaximumSize(new Dimension(200, 30));
         formPanel.add(roleComboBox);
 
@@ -56,7 +55,7 @@ public class LoginPanel extends JPanel {
         formPanel.add(passwordField);
         formPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
-        loginButton = FormComponents.createButton("Login",new Color(65, 195, 100), e -> {
+        loginButton = FormComponents.createButton("Masuk",new Color(65, 195, 100), e -> {
             {
                 String username = usernameField.getText();
                 String password = new String(passwordField.getPassword());
