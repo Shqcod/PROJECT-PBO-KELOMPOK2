@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
 
@@ -227,8 +226,10 @@ public class MenuBarang {
     public MenuEditBarang(Frame owner, BarangTablePanel barangTablePanel, List<Barang> listBarang) {
         super(owner, "Edit Barang", true);
         this.listBarang = listBarang;
-        setLayout(new GridLayout(6, 2, 10, 10));
-        setSize(400, 350);
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+        setSize(300, 150);
         setLocationRelativeTo(null);
 
         // Step 1: OptionPane untuk Input ID Barang
@@ -263,27 +264,65 @@ public class MenuBarang {
 
         // Step 2: Dialog untuk Edit Data Barang
         // Menampilkan Form dengan data lama
-        setLayout(new GridLayout(6, 2, 10, 10));
+        setLayout(new GridBagLayout());
+        gbc.insets = new Insets(5, 5, 5, 5);
 
-        add(new JLabel("ID:"));
+        JLabel labelId = new JLabel("ID: ");
+        gbc.gridx = 0; 
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.WEST;
+        add(labelId, gbc);
+
         JTextField fieldId = new JTextField(String.valueOf(barangDitemukan.getId()));
-        add(fieldId);
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        add(fieldId, gbc);
 
-        add(new JLabel("Nama Barang:"));
+        JLabel labelNama = new JLabel("Nama Barang:");
+        gbc.gridx = 0; 
+        gbc.gridy = 1;
+        gbc.fill = GridBagConstraints.NONE;
+        add(labelNama, gbc);
+
         JTextField fieldNama = new JTextField(barangDitemukan.getNama());
-        add(fieldNama);
+        gbc.gridx = 1;
+        gbc. gridy = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        add(fieldNama,gbc);
 
-        add(new JLabel("Kategori:"));
+        JLabel labelKategori = new JLabel("Kategori:");
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        add(labelKategori, gbc);
+
         JTextField fieldKategori = new JTextField(barangDitemukan.getKategori());
-        add(fieldKategori);
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        add(fieldKategori, gbc);
 
-        add(new JLabel("Harga:"));
+        JLabel labelHarga = new JLabel("Harga:");
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        add(labelHarga, gbc);
+
         JTextField fieldHarga = new JTextField(String.valueOf(barangDitemukan.getHarga()));
-        add(fieldHarga);
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        add(fieldHarga, gbc);
 
-        add(new JLabel("Stok:"));
+        JLabel labelStok = new JLabel("Stok:");
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        add(labelStok, gbc);
+
         JTextField fieldStok = new JTextField(String.valueOf(barangDitemukan.getStok()));
-        add(fieldStok);
+        gbc.gridx = 1;
+        gbc.gridy = 4;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        add(fieldStok, gbc);
 
         JButton btnEdit = new JButton("Simpan");
         btnEdit.addActionListener(e -> {
@@ -337,11 +376,21 @@ public class MenuBarang {
                 JOptionPane.showMessageDialog(owner, "Input tidak valid.");
             }
         });
-        add(btnEdit);
+        //add(btnEdit);
 
         JButton btnBatal = new JButton("Batal");
         btnBatal.addActionListener(e -> dispose());
-        add(btnBatal);
+        //add(btnBatal);
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(btnEdit);
+        buttonPanel.add(btnBatal);
+
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        add(buttonPanel, gbc);
 
         pack();
     }
