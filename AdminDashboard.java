@@ -52,7 +52,7 @@ public class AdminDashboard extends JPanel {
         menuPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
         btnLihatTransaksi = FormComponents.createDashboardButton("Lihat Transaksi", new Color(65, 195, 100), e -> {
-            LihatTransaksi lihatTransaksi = new LihatTransaksi(cardPanel, cardLayout, frame);
+            AdminLihatTransaksi lihatTransaksi = new AdminLihatTransaksi(cardPanel, cardLayout, frame);
             cardPanel.add(lihatTransaksi, "LihatTransaksi");
             cardLayout.show(cardPanel, "LihatTransaksi");
         });

@@ -1,27 +1,39 @@
 import java.util.ArrayList;
 
 public class Transaksi {
-    private ArrayList<Barang> barangDibeli;
-    private String customer;
+    private static int counter = 1; // Digunakan untuk membuat ID transaksi unik
+    private String id;
+    private Customer pelanggan;
+    private ArrayList<Barang> daftarBarang;
 
-    public Transaksi(String customer, ArrayList<Barang> barangDibeli) {
-        this.customer = customer;
-        this.barangDibeli = new ArrayList<>(barangDibeli);
+    public Transaksi(Customer pelanggan, ArrayList<Barang> daftarBarang) {
+        this.id = "TRX" + counter++;
+        this.pelanggan = pelanggan;
+        this.daftarBarang = daftarBarang;
     }
 
-    public void tampilkanTransaksi() {
-        System.out.println("Transaksi oleh: " + customer);
-        System.out.println("Barang yang Dibeli:");
-        for (Barang barang : barangDibeli) {
-            System.out.println(barang);
+    public String getId() {
+        return id;
+    }
+
+    public Customer getPelanggan() {
+        return pelanggan;
+    }
+
+    public ArrayList<Barang> getDaftarBarang() {
+        return daftarBarang;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("ID Transaksi: ").append(id).append("\n");
+        sb.append("Pelanggan: ").append(pelanggan.getUsername()).append("\n");
+        sb.append("Barang: \n");
+        for (Barang barang : daftarBarang) {
+            sb.append(" - ").append(barang.getNama()).append(", Harga: ").append(barang.getHarga())
+              .append(", Jumlah: ").append(barang.getStok()).append("\n");
         }
-    }
-
-    public ArrayList<Barang> getBarangDibeli() {
-        return barangDibeli;
-    }
-
-    public String getCustomer() {
-        return customer;
+        return sb.toString();
     }
 }
