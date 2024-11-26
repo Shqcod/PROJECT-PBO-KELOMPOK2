@@ -35,8 +35,9 @@ public class LoginPanel extends JPanel {
         
         // Tambahkan elemen ke formPanel
         JLabel titleLabel = new JLabel("Log In");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        titleLabel.setForeground(new Color(65, 195, 100));
         formPanel.add(titleLabel);
 
         formPanel.add(Box.createRigidArea(new Dimension(0, 20)));
@@ -55,7 +56,7 @@ public class LoginPanel extends JPanel {
         formPanel.add(passwordField);
         formPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
-        loginButton = FormComponents.createButton("Masuk",new Color(65, 195, 100), e -> {
+        loginButton = FormComponents.createButton("Masuk", new Color(65, 195, 100), e -> {
             {
                 String username = usernameField.getText();
                 String password = new String(passwordField.getPassword());

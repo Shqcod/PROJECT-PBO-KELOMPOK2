@@ -31,8 +31,9 @@ public class DaftarBarangAdmin extends JPanel {
         containerPanel.add(Box.createRigidArea(new Dimension(0, 25)));
         
         JLabel WelcomeLabel = new JLabel("Daftar Barang");
-        WelcomeLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        WelcomeLabel.setFont(new Font("Arial", Font.BOLD, 30));
         WelcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        WelcomeLabel.setForeground(new Color(65, 195, 100));
         containerPanel.add(WelcomeLabel);
         containerPanel.add(Box.createRigidArea(new Dimension(0, 23)));
 
@@ -41,10 +42,10 @@ public class DaftarBarangAdmin extends JPanel {
         containerPanel.setBorder(new EmptyBorder(10, 10, 50, 10));
         containerPanel.add(barangTablePanel, BorderLayout.CENTER);
 
-        JPanel panelBawah = new JPanel();
-        panelBawah.setBackground(Color.WHITE);
-        panelBawah.setPreferredSize(new Dimension(200, 100));
-        panelBawah.setLayout(new FlowLayout(FlowLayout.CENTER, 1, 5));
+        JPanel panelTombol = new JPanel();
+        panelTombol.setBackground(Color.WHITE);
+        panelTombol.setPreferredSize(new Dimension(200, 100));
+        panelTombol.setLayout(new FlowLayout(FlowLayout.CENTER, 1, 5));
 
         GridBagConstraints gridTombol = new GridBagConstraints();
         gridTombol.fill = GridBagConstraints.HORIZONTAL;
@@ -53,31 +54,31 @@ public class DaftarBarangAdmin extends JPanel {
         gridTombol.anchor = GridBagConstraints.WEST;  // Tombol Kembali di kiri
         gridTombol.insets = new Insets(5, 5, 5, 5);
 
-        btnKembali = FormComponents.createInteractButton("Keluar", e -> cardLayout.show(cardPanel, "AdminDashboard"));
-        panelBawah.add(btnKembali, gridTombol);
+        btnKembali = FormComponents.createInteractButton("Keluar", new Color(65, 195, 100), e -> cardLayout.show(cardPanel, "AdminDashboard"));
+        panelTombol.add(btnKembali, gridTombol);
 
         gridTombol.gridx = 1;  // Tombol Tambah, Edit, dan Hapus ditempatkan di kolom 1
         gridTombol.anchor = GridBagConstraints.CENTER; // Tombol di tengah
         gridTombol.gridwidth = 1;  // Set gridwidth ke 1 untuk setiap tombol
         gridTombol.insets = new Insets(5, 20, 5, 5);  // Menambah jarak antar tombol
 
-        btnTambah = FormComponents.createInteractButton("Tambah", e -> new MenuBarang.MenuTambahBarang(frame, barangTablePanel, barangList).setVisible(true));
-        panelBawah.add(btnTambah, gridTombol);
+        btnTambah = FormComponents.createInteractButton("Tambah", new Color(65, 195, 100), e -> new MenuBarang.MenuTambahBarang(frame, barangTablePanel, barangList).setVisible(true));
+        panelTombol.add(btnTambah, gridTombol);
         
-        btnEdit = FormComponents.createInteractButton("Edit", e -> new MenuBarang.MenuEditBarang(frame, barangTablePanel, barangList).setVisible(true));
+        btnEdit = FormComponents.createInteractButton("Edit", new Color(65, 195, 100), e -> new MenuBarang.MenuEditBarang(frame, barangTablePanel, barangList).setVisible(true));
         gridTombol.gridx = 2;  // Tombol Edit di sebelah Tombol Tambah
-        panelBawah.add(btnEdit, gridTombol);
+        panelTombol.add(btnEdit, gridTombol);
 
-        btnHapus = FormComponents.createInteractButton("Hapus", e -> new MenuBarang.MenuHapusBarang(frame, barangTablePanel, barangList).setVisible(true));
+        btnHapus = FormComponents.createInteractButton("Hapus", new Color(65, 195, 100),e -> new MenuBarang.MenuHapusBarang(frame, barangTablePanel, barangList).setVisible(true));
         gridTombol.gridx = 3;  // Tombol Hapus di sebelah Tombol Edit
-        panelBawah.add(btnHapus, gridTombol);
+        panelTombol.add(btnHapus, gridTombol);
 
         gridTombol.gridx = 4;
         gridTombol.anchor = GridBagConstraints.EAST;
-        panelBawah.add(btnHapus, gridTombol);
+        panelTombol.add(btnHapus, gridTombol);
 
 
-        containerPanel.add(panelBawah, BorderLayout.SOUTH);
+        containerPanel.add(panelTombol, BorderLayout.SOUTH);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
