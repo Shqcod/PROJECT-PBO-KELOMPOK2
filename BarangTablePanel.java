@@ -142,5 +142,9 @@ public class BarangTablePanel extends JPanel {
         tableModel.removeRow(rowIndex);
     }
 
+    public void setValueAt(Object value, int rowIndex, int ColumnIndex){
+        tableModel.setValueAt(value, rowIndex, ColumnIndex);
+    }
+
 
 }

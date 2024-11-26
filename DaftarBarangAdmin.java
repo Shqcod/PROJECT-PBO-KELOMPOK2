@@ -64,7 +64,7 @@ public class DaftarBarangAdmin extends JPanel {
         btnTambah = FormComponents.createInteractButton("Tambah", e -> new MenuBarang.MenuTambahBarang(frame, barangTablePanel, barangList).setVisible(true));
         panelBawah.add(btnTambah, gridTombol);
         
-        btnEdit = FormComponents.createInteractButton("Edit", null);
+        btnEdit = FormComponents.createInteractButton("Edit", e -> new MenuBarang.MenuEditBarang(frame, barangTablePanel, barangList).setVisible(true));
         gridTombol.gridx = 2;  // Tombol Edit di sebelah Tombol Tambah
         panelBawah.add(btnEdit, gridTombol);
 
