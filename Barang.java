@@ -33,7 +33,7 @@ public class Barang {
         return kategori;
     }
 
-    public void setiD(int id){
+    public void setId(int id){
         this.id = id;
     }
 

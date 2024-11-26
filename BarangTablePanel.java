@@ -88,6 +88,9 @@ public class BarangTablePanel extends JPanel {
             column.setPreferredWidth(maxWidth * 10);  // Menyesuaikan lebar (dikali 10 untuk padding)
         }
     }
+    public DefaultTableModel getModel() {
+        return tableModel;
+    }
 
     public void tambahBarang(Barang barang){
         tableModel.addRow(new Object[] {
@@ -145,6 +148,21 @@ public class BarangTablePanel extends JPanel {
     public void setValueAt(Object value, int rowIndex, int ColumnIndex){
         tableModel.setValueAt(value, rowIndex, ColumnIndex);
     }
+    public void refreshTable(List<Barang> listBarang) {
+        DefaultTableModel model = getModel();
+        model.setRowCount(0); // Hapus semua baris
+    
+        for (Barang barang : listBarang) {
+            model.addRow(new Object[] {
+                barang.getId(),
+                barang.getNama(),
+                barang.getHarga(),
+                barang.getStok(),
+                barang.getKategori()
+            });
+        }
+    }
+    
 
 
 }

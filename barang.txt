@@ -1,4 +1,4 @@
-8,Power Bank Anker 20000mAh,550000.0,25,Elektronik
+120,Power Bank Anker 20000mAh,550000.0,16,Elektronik
 9,Setrika Maspion,200000.0,40,Elektronik
 10,Blender Philips HR,650000.0,20,Dapur
 13,Sampo,10000.0,12,Elektronik
