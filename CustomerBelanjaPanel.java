@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class BelanjaTablePanel extends JPanel {
+public class CustomerBelanjaPanel extends JPanel {
     JTable table;
     private DefaultTableModel tableModel;
     private JComboBox<String> categoryComboBox;
@@ -16,14 +16,14 @@ public class BelanjaTablePanel extends JPanel {
     private ArrayList<Barang> keranjang;
     //private Akun customer;
 
-    public BelanjaTablePanel(List<Barang> barangList) {
+    public CustomerBelanjaPanel(List<Barang> barangList) {
         this.barangList = barangList;
         this.keranjang = new ArrayList<>();
 
         setLayout(new BorderLayout());
 
         // Tabel
-        String[] columnNames = {"ID", "Nama", "Harga", "Stok", "Kategori", "Tambah"};
+        String[] columnNames = {"ID", "Nama", "Harga", "Stok", "Kategori"};
         tableModel = new DefaultTableModel(columnNames, 0);
         table = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(table);
@@ -64,7 +64,7 @@ public class BelanjaTablePanel extends JPanel {
                 .toArray(String[]::new);
     }
 
-    private void populateTable(List<Barang> barangList) {
+    public void populateTable(List<Barang> barangList) {
         tableModel.setRowCount(0); // Hapus data lama
         for (Barang barang : barangList) {
             tableModel.addRow(new Object[]{
@@ -142,7 +142,7 @@ public class BelanjaTablePanel extends JPanel {
 
     private void bukaKeranjang() {
         JFrame keranjangFrame = new JFrame("Keranjang");
-        keranjangFrame.setContentPane(new KeranjangPanel(keranjang));
+        keranjangFrame.setContentPane(new KeranjangPanel(keranjang, barangList, this));
         keranjangFrame.setSize(600, 400);
         keranjangFrame.setLocationRelativeTo(this);
         keranjangFrame.setVisible(true);
@@ -154,40 +154,66 @@ public class BelanjaTablePanel extends JPanel {
             return;
         }
     
-        String metodePembayaran = JOptionPane.showInputDialog(this, 
-                "Masukkan metode pembayaran (contoh: QRIS/COD/Bank):", 
-                "Metode Pembayaran", JOptionPane.PLAIN_MESSAGE);
+        // Dropdown untuk memilih metode pembayaran
+        String[] metodePembayaranOptions = {"QRIS", "Bank Transfer", "COD"};
+        String metodePembayaran = (String) JOptionPane.showInputDialog(
+                this,
+                "Pilih metode pembayaran:",
+                "Metode Pembayaran",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                metodePembayaranOptions,
+                metodePembayaranOptions[0]);
     
         if (metodePembayaran == null || metodePembayaran.trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Metode pembayaran tidak boleh kosong!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
     
-        // Generate ID transaksi
+        // Generate ID transaksi dan keterangan
         String idTransaksi = "TRX" + System.currentTimeMillis();
         String keterangan = "Menunggu Konfirmasi";
-
-        List<Transaksi> listTransaksi = new ArrayList<>();
-
+    
+        // Hitung total harga
         double totalHarga = 0;
-        for (Barang barang : keranjang){
+        for (Barang barang : keranjang) {
             totalHarga += barang.getHarga() * barang.getStok();
         }
-
-        Transaksi transaksi = new Transaksi(idTransaksi, new Akun(),keranjang, metodePembayaran, totalHarga, keterangan );
-
-        
+    
+        // Buat objek Transaksi
+        Transaksi transaksi = new Transaksi(idTransaksi, new Akun(), keranjang, metodePembayaran, totalHarga, keterangan);
+    
+        // Buat objek Pembayaran berdasarkan metode yang dipilih
+        Pembayaran pembayaran;
+        switch (metodePembayaran) {
+            case "QRIS":
+                pembayaran = new QRIS("PM-" + System.currentTimeMillis());
+                QRIS.tampilkanQRCode();
+                break;
+            case "Bank Transfer":
+                pembayaran = new Bank("PM-" + System.currentTimeMillis());
+                break;
+            case "COD":
+                pembayaran = new COD("PM-" + System.currentTimeMillis());
+                break;
+            default:
+                JOptionPane.showMessageDialog(this, "Metode pembayaran tidak valid!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+        }
+    
+        // Buat Invoice
+        Invoice invoice = new Invoice(transaksi, pembayaran);
+    
         // Simpan transaksi ke file
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("transaksi.txt", true))) {
             StringBuilder barangString = new StringBuilder();
     
             for (Barang barang : keranjang) {
-                barangString.append(String.format("[%s,%.2f,%d],", 
-                    barang.getNama(), barang.getHarga(), barang.getStok()));
+                barangString.append(String.format("[%s,%.2f,%d],",
+                        barang.getNama(), barang.getHarga(), barang.getStok()));
             }
-
     
-            String transaksilist = String.format("%s;%s;%s;%s;%.2f;%s\n", 
+            String transaksilist = String.format("%s;%s;%s;%s;%.2f;%s\n",
                     idTransaksi, "Customer", metodePembayaran, barangString.toString(), totalHarga, keterangan);
     
             writer.write(transaksilist);
@@ -195,12 +221,15 @@ public class BelanjaTablePanel extends JPanel {
             JOptionPane.showMessageDialog(this, "Gagal menyimpan transaksi ke file!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        listTransaksi.add(transaksi);
+    
+        // Tampilkan pesan sukses dan invoice
+        JOptionPane.showMessageDialog(this, 
+            "Checkout berhasil!\nInvoice telah dicetak.\n\n" + invoice.toString(),
+            "Sukses",
+            JOptionPane.INFORMATION_MESSAGE);
+        
+        ListBarang.updateStokBarang(keranjang);
         keranjang.clear(); // Bersihkan keranjang setelah checkout
-        JOptionPane.showMessageDialog(this, "Checkout berhasil! Data transaksi disimpan.");
     }
-    
-    
-
 
 }

@@ -7,7 +7,7 @@ public class KeranjangPanel extends JPanel {
     JTable table;
     private DefaultTableModel tableModel;
 
-    public KeranjangPanel(List<Barang> keranjang) {
+    public KeranjangPanel(List<Barang> keranjang, List<Barang> barangList, CustomerBelanjaPanel customerBelanjaPanel) {
         setLayout(new BorderLayout());
 
         // Tabel
@@ -27,7 +27,7 @@ public class KeranjangPanel extends JPanel {
         add(buttonPanel, BorderLayout.SOUTH);
 
         // Tombol Hapus
-        btnHapus.addActionListener(e -> hapusBarang(keranjang));
+        btnHapus.addActionListener(e -> hapusBarang(keranjang, barangList, customerBelanjaPanel));
     }
 
     private void populateTable(List<Barang> keranjang) {
@@ -42,12 +42,25 @@ public class KeranjangPanel extends JPanel {
         }
     }
 
-    private void hapusBarang(List<Barang> keranjang) {
+    private void hapusBarang(List<Barang> keranjang, List<Barang> barangList, CustomerBelanjaPanel customerBelanjaPanel) {
         int selectedRow = table.getSelectedRow();
         if (selectedRow != -1) {
             int id = (int) table.getValueAt(selectedRow, 0);
+            int jumlahDihapus = (int) table.getValueAt(selectedRow, 3);
+
             keranjang.removeIf(barang -> barang.getId() == id);
+
+            // Kembalikan stok barang di barangList
+            Barang barangDiList = barangList.stream()
+                    .filter(b -> b.getId() == id)
+                    .findFirst()
+                    .orElse(null);
+            if (barangDiList != null) {
+                barangDiList.setStok(barangDiList.getStok() + jumlahDihapus);
+            }
+
             populateTable(keranjang);
+            customerBelanjaPanel.populateTable(barangList); // Perbarui tabel utama
             JOptionPane.showMessageDialog(this, "Barang berhasil dihapus dari keranjang!");
         } else {
             JOptionPane.showMessageDialog(this, "Pilih barang terlebih dahulu!", "Error", JOptionPane.WARNING_MESSAGE);

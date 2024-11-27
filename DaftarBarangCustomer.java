@@ -9,7 +9,7 @@ public class DaftarBarangCustomer extends JPanel {
     private CardLayout cardLayout;
     private JFrame frame;
     private JButton btnKembali, btnTambah, btnCheckout, btnKeranjang;
-    private BelanjaTablePanel belanjaTablePanel;
+    private CustomerBelanjaPanel customerBelanjaPanel;
     private Keranjang keranjang;
 
     public DaftarBarangCustomer(JPanel cardPanel, CardLayout cardLayout, JFrame frame) {
@@ -39,9 +39,9 @@ public class DaftarBarangCustomer extends JPanel {
         containerPanel.add(Box.createRigidArea(new Dimension(0, 23)));
 
         List<Barang> barangList = ListBarang.loadBarangFromFile("barang.txt");
-        belanjaTablePanel = new BelanjaTablePanel(barangList);
+        customerBelanjaPanel = new CustomerBelanjaPanel(barangList);
         containerPanel.setBorder(new EmptyBorder(10, 10, 50, 10));
-        containerPanel.add(belanjaTablePanel, BorderLayout.CENTER);
+        containerPanel.add(customerBelanjaPanel, BorderLayout.CENTER);
 
         JPanel panelTombol = new JPanel();
         panelTombol.setBackground(Color.WHITE);

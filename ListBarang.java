@@ -50,6 +50,44 @@ public class ListBarang {
         saveBarangToFile(filePath, listBarang);
     
     }
+    public static void updateStokBarang(List<Barang> keranjang){
+        String filePath = "barang.txt";
+        List<Barang> updatedBarangList = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] barangData = line.split(",");
+                int id = Integer.parseInt(barangData[0]);
+                String nama = barangData[1];
+                double harga = Double.parseDouble(barangData[2]);
+                int stok = Integer.parseInt(barangData[3]);
+                String kategori = barangData[4];
+
+                // Jika barang ada dalam keranjang, kurangi stok
+                for (Barang barangDiKeranjang : keranjang) {
+                    if (barangDiKeranjang.getId() == id) {
+                        stok -= barangDiKeranjang.getStok(); // Kurangi stok sesuai jumlah yang dibeli
+                    }
+                }
+
+                // Membuat objek barang baru dengan stok yang telah diperbarui
+                updatedBarangList.add(new Barang(id, nama, harga, stok, kategori));
+            }
+        } catch (IOException e) {
+            System.out.println("Gagal membaca file barang: " + e.getMessage());
+            return;
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))){
+            for (Barang barang : updatedBarangList) {
+                writer.write(String.format("%d,%s,%.2f,%d,%s\n",
+                barang.getId(), barang.getNama(), barang.getHarga(), barang.getStok(), barang.getKategori()));
+            }
+        } catch (IOException e) {
+            System.out.println("Gagal menulis ke file barang: " + e.getMessage());
+        }
+    }
 
     public static void editBarang(String filePath, List<Barang> listBarang, int idBarang, double hargaBaru, int stokBaru){
         for (Barang barang : listBarang) {
