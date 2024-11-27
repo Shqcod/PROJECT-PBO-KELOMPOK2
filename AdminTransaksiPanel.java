@@ -10,12 +10,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransaksiTablePanel extends JPanel {
+public class AdminTransaksiPanel extends JPanel {
     private List<Transaksi> listTransaksi;
     JTable table;
     private DefaultTableModel tableModel;
 
-    public TransaksiTablePanel(List<Transaksi> listTransaksi) {
+    public AdminTransaksiPanel(List<Transaksi> listTransaksi) {
         setLayout(new BorderLayout());
 
         // Tabel
@@ -25,9 +25,11 @@ public class TransaksiTablePanel extends JPanel {
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane, BorderLayout.CENTER);
 
-        JButton btnKonfirmasi = new JButton("Konfirmasi");
-        btnKonfirmasi.addActionListener(e -> konfirmasiTransaksi());
-        add(btnKonfirmasi, BorderLayout.SOUTH);
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        buttonPanel.setBackground(Color.WHITE);
+        JButton btnKonfirmasi = FormComponents.createInteractButton("Konfirmasi", new Color(65, 195, 100), e -> konfirmasiTransaksi());
+        buttonPanel.add(btnKonfirmasi);
+        add(buttonPanel, BorderLayout.SOUTH);
 
         loadTransaksiData();
         adjustColumnWidths();
@@ -35,6 +37,8 @@ public class TransaksiTablePanel extends JPanel {
 
     private void loadTransaksiData() {
         String fileName = "transaksi.txt";  // Nama file transaksi
+
+        tableModel.setRowCount(0);
 
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;

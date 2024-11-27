@@ -3,14 +3,14 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.List;
 
-public class RiwayatTransaksiAdmin extends JPanel {
+public class AdminRiwayatTransaksi extends JPanel {
     private JPanel cardPanel;
     private CardLayout cardLayout;
     private JFrame frame;
     private JButton btnKembali;
-    private TransaksiTablePanel transaksiTablePanel;
+    private AdminTransaksiPanel transaksiTablePanel;
 
-    public RiwayatTransaksiAdmin(JPanel cardPanel, CardLayout cardLayout, JFrame frame) {
+    public AdminRiwayatTransaksi(JPanel cardPanel, CardLayout cardLayout, JFrame frame) {
         this.cardPanel = cardPanel;
         this.cardLayout = cardLayout;
         this.frame = frame;
@@ -37,7 +37,7 @@ public class RiwayatTransaksiAdmin extends JPanel {
         containerPanel.add(Box.createRigidArea(new Dimension(0, 23)));
 
         List<Transaksi> listTransaksi = FileTransaksi.bacaTransaksiDariFile("transaksi.txt");
-        transaksiTablePanel = new TransaksiTablePanel(listTransaksi);
+        transaksiTablePanel = new AdminTransaksiPanel(listTransaksi);
         containerPanel.setBorder(new EmptyBorder(10, 10, 50, 10));
         containerPanel.add(transaksiTablePanel, BorderLayout.CENTER);
 

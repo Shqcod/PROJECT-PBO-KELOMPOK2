@@ -18,7 +18,7 @@ public class AdminDashboard extends JPanel {
         backgroundPanel.setLayout(new GridBagLayout());
 
         RoundedPanel menuPanel = new RoundedPanel(30, 30);
-        menuPanel.setPreferredSize(new Dimension(270, 360));
+        menuPanel.setPreferredSize(new Dimension(270, 250));
         menuPanel.setBackground(Color.WHITE);
         menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS));
         menuPanel.setBorderColor(Color.LIGHT_GRAY);
@@ -32,15 +32,6 @@ public class AdminDashboard extends JPanel {
         menuPanel.add(WelcomeLabel);
         menuPanel.add(Box.createRigidArea(new Dimension(0, 25)));
 
-        // ImageIcon originalIcon = new ImageIcon("assets\\admin.png");
-        // Image image = originalIcon.getImage(); // Mengambil image dari ImageIcon
-        // Image scaledImage = image.getScaledInstance(90, 100, Image.SCALE_SMOOTH); // Mengubah ukuran gambar
-        // ImageIcon scaledIcon = new ImageIcon(scaledImage);
-        // JLabel imageLabel = new JLabel(scaledIcon);
-        // imageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        // menuPanel.add(imageLabel);
-        // menuPanel.add(Box.createRigidArea(new Dimension(0, 25)));
-
         btnLihatBarang = FormComponents.createDashboardButton("Daftar Barang", new Color(65, 195, 100), e -> {
             DaftarBarangAdmin daftarBarangAdmin = new DaftarBarangAdmin(cardPanel, cardLayout, frame);
             cardPanel.add(daftarBarangAdmin, "DaftarBarangAdmin");
@@ -51,7 +42,7 @@ public class AdminDashboard extends JPanel {
         menuPanel.add(Box.createRigidArea(new Dimension(0, 25)));
 
         btnLihatTransaksi = FormComponents.createDashboardButton("Lihat Transaksi", new Color(65, 195, 100), e -> {
-            RiwayatTransaksiAdmin lihatTransaksi = new RiwayatTransaksiAdmin(cardPanel, cardLayout, frame);
+            AdminRiwayatTransaksi lihatTransaksi = new AdminRiwayatTransaksi(cardPanel, cardLayout, frame);
             cardPanel.add(lihatTransaksi, "LihatTransaksi");
             cardLayout.show(cardPanel, "LihatTransaksi");
         });
