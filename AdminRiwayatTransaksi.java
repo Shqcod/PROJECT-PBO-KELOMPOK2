@@ -8,7 +8,7 @@ public class AdminRiwayatTransaksi extends JPanel {
     private CardLayout cardLayout;
     private JFrame frame;
     private JButton btnKembali;
-    private AdminTransaksiPanel transaksiTablePanel;
+    private TabelTransaksi transaksiTable;
 
     public AdminRiwayatTransaksi(JPanel cardPanel, CardLayout cardLayout, JFrame frame) {
         this.cardPanel = cardPanel;
@@ -29,7 +29,7 @@ public class AdminRiwayatTransaksi extends JPanel {
 
         containerPanel.add(Box.createRigidArea(new Dimension(0, 25)));
         
-        JLabel WelcomeLabel = new JLabel("Daftar Barang");
+        JLabel WelcomeLabel = new JLabel("Daftar Transaksi");
         WelcomeLabel.setFont(new Font("Arial", Font.BOLD, 30));
         WelcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         WelcomeLabel.setForeground(new Color(65, 195, 100));
@@ -37,9 +37,9 @@ public class AdminRiwayatTransaksi extends JPanel {
         containerPanel.add(Box.createRigidArea(new Dimension(0, 23)));
 
         List<Transaksi> listTransaksi = FileTransaksi.bacaTransaksiDariFile("transaksi.txt");
-        transaksiTablePanel = new AdminTransaksiPanel(listTransaksi);
+        transaksiTable = new TabelTransaksi(listTransaksi);
         containerPanel.setBorder(new EmptyBorder(10, 10, 50, 10));
-        containerPanel.add(transaksiTablePanel, BorderLayout.CENTER);
+        containerPanel.add(transaksiTable, BorderLayout.CENTER);
 
         JPanel panelTombol = new JPanel();
         panelTombol.setBackground(Color.WHITE);

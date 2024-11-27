@@ -9,7 +9,7 @@ public class DaftarBarangCustomer extends JPanel {
     private CardLayout cardLayout;
     private JFrame frame;
     private JButton btnKembali, btnTambah, btnCheckout, btnKeranjang;
-    private CustomerBelanjaPanel customerBelanjaPanel;
+    private CustomerBelanjaPanel tabelBarang;
     private Keranjang keranjang;
 
     public DaftarBarangCustomer(JPanel cardPanel, CardLayout cardLayout, JFrame frame) {
@@ -39,15 +39,14 @@ public class DaftarBarangCustomer extends JPanel {
         containerPanel.add(Box.createRigidArea(new Dimension(0, 23)));
 
         List<Barang> barangList = ListBarang.loadBarangFromFile("barang.txt");
-        customerBelanjaPanel = new CustomerBelanjaPanel(barangList);
+        tabelBarang = new CustomerBelanjaPanel(barangList);
         containerPanel.setBorder(new EmptyBorder(10, 10, 50, 10));
-        containerPanel.add(customerBelanjaPanel, BorderLayout.CENTER);
+        containerPanel.add(tabelBarang, BorderLayout.CENTER);
 
-        JPanel panelTombol = new JPanel();
+        JPanel panelTombol = new JPanel(new FlowLayout(FlowLayout.CENTER));
         panelTombol.setBackground(Color.WHITE);
         panelTombol.setPreferredSize(new Dimension(200, 100));
-        panelTombol.setLayout(new FlowLayout(FlowLayout.CENTER, 1, 5));
-
+        
         GridBagConstraints gridTombol = new GridBagConstraints();
         gridTombol.fill = GridBagConstraints.HORIZONTAL;
         gridTombol.gridx = 0;

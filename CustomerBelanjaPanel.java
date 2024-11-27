@@ -32,6 +32,7 @@ public class CustomerBelanjaPanel extends JPanel {
         // Kategori
         JPanel filterPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JLabel filterLabel = new JLabel("Kategori:");
+        filterPanel.setBackground(Color.WHITE);
         filterPanel.add(filterLabel);
 
         categoryComboBox = new JComboBox<>(getCategories());
@@ -54,7 +55,16 @@ public class CustomerBelanjaPanel extends JPanel {
         add(buttonPanel, BorderLayout.SOUTH);
 
         populateTable(barangList);
+        setTableColumnWidths();
 
+    }
+
+    private void setTableColumnWidths() {
+        table.getColumnModel().getColumn(0).setPreferredWidth(50); 
+        table.getColumnModel().getColumn(1).setPreferredWidth(450);
+        table.getColumnModel().getColumn(2).setPreferredWidth(125);
+        table.getColumnModel().getColumn(3).setPreferredWidth(50); 
+        table.getColumnModel().getColumn(4).setPreferredWidth(150);
     }
 
     private String[] getCategories() {
@@ -62,6 +72,7 @@ public class CustomerBelanjaPanel extends JPanel {
                 .map(Barang::getKategori)
                 .distinct()
                 .toArray(String[]::new);
+        
     }
 
     public void populateTable(List<Barang> barangList) {

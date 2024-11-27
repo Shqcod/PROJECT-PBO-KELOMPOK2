@@ -7,7 +7,7 @@ public class CustomerDashboard extends JPanel {
     private JPanel cardPanel;
     private CardLayout cardLayout;
     private JFrame frame;
-    private JButton btnBelanja, btnRiwayatTransaksi, btnKeluar;
+    private JButton btnBelanja, btnTransaksi, btnKeluar;
 
     public CustomerDashboard(JPanel cardPanel, CardLayout cardLayout, JFrame frame) {
         this.cardPanel = cardPanel;
@@ -42,17 +42,13 @@ public class CustomerDashboard extends JPanel {
             cardPanel.add(daftarBarangCustomer, "DaftarBarangCustomer");
             cardLayout.show(cardPanel, "DaftarBarangCustomer");
         });
-
-        menuPanel.add(btnBelanja);
-        menuPanel.add(Box.createRigidArea(new Dimension(0, 25)));
-
-        btnRiwayatTransaksi = FormComponents.createDashboardButton("Riwayat Transaksi", new Color(65, 195, 100), e -> {
-            RiwayatTransaksiCustomer riwayatTransaksiCustomer = new RiwayatTransaksiCustomer(cardPanel, cardLayout, frame);
-            cardPanel.add(riwayatTransaksiCustomer, "RiwayatTransaksiCustomer");
-            cardLayout.show(cardPanel, "RiwayatTransaksiCustomer");
+        btnTransaksi = FormComponents.createDashboardButton("Riwayat Transaksi", new Color(65, 195, 100), e -> {
+            DaftarBarangCustomer daftarBarangCustomer = new DaftarBarangCustomer(cardPanel, cardLayout, frame);
+            cardPanel.add(daftarBarangCustomer, "DaftarBarangCustomer");
+            cardLayout.show(cardPanel, "DaftarBarangCustomer");
         });
 
-        menuPanel.add(btnRiwayatTransaksi);
+        menuPanel.add(btnBelanja);
         menuPanel.add(Box.createRigidArea(new Dimension(0, 25)));
 
         // Tombol Keluar
@@ -72,11 +68,5 @@ public class CustomerDashboard extends JPanel {
         // Menambahkan background panel ke CustomerDashboard
         setLayout(new BorderLayout());
         add(backgroundPanel, BorderLayout.CENTER);
-    }
-
-    // Placeholder untuk mendapatkan daftar barang
-    private List<Barang> getBarangList() {
-        // Implementasi ini dapat diubah untuk membaca barang dari file atau database
-        return new ArrayList<>();
     }
 }

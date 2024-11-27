@@ -4,14 +4,14 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.List;
 
-public class DaftarBarangAdmin extends JPanel {
+public class AdminDaftarBarang extends JPanel {
     private JPanel cardPanel;
     private CardLayout cardLayout;
     private JFrame frame;
     private JButton btnKembali, btnTambah, btnEdit, btnHapus;
-    private BarangTablePanel barangTablePanel;
+    private TabelBarang tabelBarang;
 
-    public DaftarBarangAdmin(JPanel cardPanel, CardLayout cardLayout, JFrame frame) {
+    public AdminDaftarBarang(JPanel cardPanel, CardLayout cardLayout, JFrame frame) {
         this.cardPanel = cardPanel;
         this.cardLayout = cardLayout;
         this.frame = frame;
@@ -38,9 +38,9 @@ public class DaftarBarangAdmin extends JPanel {
         containerPanel.add(Box.createRigidArea(new Dimension(0, 23)));
 
         List<Barang> barangList = ListBarang.loadBarangFromFile("barang.txt");
-        barangTablePanel = new BarangTablePanel(barangList);
+        tabelBarang = new TabelBarang(barangList);
         containerPanel.setBorder(new EmptyBorder(10, 10, 50, 10));
-        containerPanel.add(barangTablePanel, BorderLayout.CENTER);
+        containerPanel.add(tabelBarang, BorderLayout.CENTER);
 
         JPanel panelTombol = new JPanel();
         panelTombol.setBackground(Color.WHITE);
@@ -62,14 +62,14 @@ public class DaftarBarangAdmin extends JPanel {
         gridTombol.gridwidth = 1;  // Set gridwidth ke 1 untuk setiap tombol
         gridTombol.insets = new Insets(5, 20, 5, 5);  // Menambah jarak antar tombol
 
-        btnTambah = FormComponents.createInteractButton("Tambah", new Color(65, 195, 100), e -> new MenuBarang.MenuTambahBarang(frame, barangTablePanel, barangList).setVisible(true));
+        btnTambah = FormComponents.createInteractButton("Tambah", new Color(65, 195, 100), e -> new MenuBarang.MenuTambahBarang(frame, tabelBarang, barangList).setVisible(true));
         panelTombol.add(btnTambah, gridTombol);
         
-        btnEdit = FormComponents.createInteractButton("Edit", new Color(65, 195, 100), e -> new MenuBarang.MenuEditBarang(frame, barangTablePanel, barangList).setVisible(true));
+        btnEdit = FormComponents.createInteractButton("Edit", new Color(65, 195, 100), e -> new MenuBarang.MenuEditBarang(frame, tabelBarang, barangList).setVisible(true));
         gridTombol.gridx = 2;  // Tombol Edit di sebelah Tombol Tambah
         panelTombol.add(btnEdit, gridTombol);
 
-        btnHapus = FormComponents.createInteractButton("Hapus", new Color(65, 195, 100),e -> new MenuBarang.MenuHapusBarang(frame, barangTablePanel, barangList).setVisible(true));
+        btnHapus = FormComponents.createInteractButton("Hapus", new Color(65, 195, 100),e -> new MenuBarang.MenuHapusBarang(frame, tabelBarang, barangList).setVisible(true));
         gridTombol.gridx = 3;  // Tombol Hapus di sebelah Tombol Edit
         panelTombol.add(btnHapus, gridTombol);
 

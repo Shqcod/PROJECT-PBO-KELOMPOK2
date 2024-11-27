@@ -33,9 +33,9 @@ public class AdminDashboard extends JPanel {
         menuPanel.add(Box.createRigidArea(new Dimension(0, 25)));
 
         btnLihatBarang = FormComponents.createDashboardButton("Daftar Barang", new Color(65, 195, 100), e -> {
-            DaftarBarangAdmin daftarBarangAdmin = new DaftarBarangAdmin(cardPanel, cardLayout, frame);
-            cardPanel.add(daftarBarangAdmin, "DaftarBarangAdmin");
-            cardLayout.show(cardPanel, "DaftarBarangAdmin");
+            AdminDaftarBarang adminDaftarBarang = new AdminDaftarBarang(cardPanel, cardLayout, frame);
+            cardPanel.add(adminDaftarBarang, "AdminDaftarBarang");
+            cardLayout.show(cardPanel, "AdminDaftarBarang");
         });
        
         menuPanel.add(btnLihatBarang);

@@ -5,13 +5,13 @@ import java.awt.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class BarangTablePanel extends JPanel {
+public class TabelBarang extends JPanel {
     private List<Barang> barangList;
     JTable table;
     private DefaultTableModel tableModel;
     private JComboBox<String> categoryComboBox;
 
-    public BarangTablePanel(List<Barang> barangList) {
+    public TabelBarang(List<Barang> barangList) {
         setLayout(new BorderLayout());
 
         // Tabel
@@ -35,7 +35,7 @@ public class BarangTablePanel extends JPanel {
         add(filterPanel, BorderLayout.NORTH);
 
         populateTable(barangList);
-        adjustColumnWidths();
+        setTableColumnWidths();
     }
 
     private String[] getCategories(List<Barang> barangList) {
@@ -69,24 +69,16 @@ public class BarangTablePanel extends JPanel {
                     .collect(Collectors.toList());
         }
         populateTable(filteredList);
-        adjustColumnWidths();
+        setTableColumnWidths();
     }
 
-    // Menyesuaikan lebar kolom berdasarkan panjang data
-    private void adjustColumnWidths() {
-        for (int i = 0; i < table.getColumnCount(); i++) {
-            int columnIndex = i;
-            TableColumn column = table.getColumnModel().getColumn(columnIndex);
-            int maxWidth = 0;
-            // Menghitung panjang karakter terbesar pada kolom tersebut
-            for (int row = 0; row < table.getRowCount(); row++) {
-                Object value = table.getValueAt(row, columnIndex);
-                int length = value != null ? value.toString().length() : 0;
-                maxWidth = Math.max(maxWidth, length);
-            }
-            // Menyesuaikan lebar kolom berdasarkan panjang data
-            column.setPreferredWidth(maxWidth * 10);  // Menyesuaikan lebar (dikali 10 untuk padding)
-        }
+    private void setTableColumnWidths() {
+        table.getColumnModel().getColumn(0).setPreferredWidth(50); // ID
+        table.getColumnModel().getColumn(1).setPreferredWidth(450); // Nama barang
+        table.getColumnModel().getColumn(2).setPreferredWidth(125); // Harga
+        table.getColumnModel().getColumn(3).setPreferredWidth(50); //  Stok
+        table.getColumnModel().getColumn(4).setPreferredWidth(150); // Kategori
+       
     }
     public DefaultTableModel getModel() {
         return tableModel;

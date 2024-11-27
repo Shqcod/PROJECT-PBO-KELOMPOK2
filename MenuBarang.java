@@ -3,11 +3,10 @@ import java.awt.*;
 import java.util.List;
 
 public class MenuBarang {
-    //private BarangTablePanel barangTablePanel
     public static class MenuTambahBarang extends JDialog {
         private List<Barang> listBarang;
 
-        public MenuTambahBarang(Frame owner, BarangTablePanel barangTablePanel, List<Barang> listBarang) {
+        public MenuTambahBarang(Frame owner, TabelBarang tabelBarang, List<Barang> listBarang) {
             super(owner, "Tambah Barang", true);
             setLayout(new GridBagLayout());
             GridBagConstraints gbc = new GridBagConstraints();
@@ -15,61 +14,67 @@ public class MenuBarang {
             setSize(400, 300);
             setLocationRelativeTo(null);
 
+            JLabel labelTambah = new JLabel("Masukkan data barang baru");
+            gbc.gridx = 1;
+            gbc.gridy = 0;
+            gbc.anchor = GridBagConstraints.CENTER;
+            add(labelTambah,gbc);
+
             JLabel labelID = new JLabel("ID: ");
             gbc.gridx = 0; 
-            gbc.gridy = 0;
+            gbc.gridy = 1;
             gbc.anchor = GridBagConstraints.WEST;
             add(labelID, gbc);
 
             JTextField fieldId = new JTextField();
             gbc.gridx = 1;
-            gbc.gridy = 0;
+            gbc.gridy = 1;
             gbc.fill = GridBagConstraints.HORIZONTAL;
             add(fieldId, gbc);
             
             JLabel labelNama = new JLabel("Nama Barang:");
             gbc.gridx = 0; 
-            gbc.gridy = 1;
+            gbc.gridy = 2;
             gbc.fill = GridBagConstraints.NONE;
             add(labelNama, gbc);
 
             JTextField fieldNama = new JTextField(20);
             // fieldNama.setMaximumSize(new Dimension(100,25));
             gbc.gridx = 1;
-            gbc. gridy = 1;
+            gbc. gridy = 2;
             gbc.fill = GridBagConstraints.HORIZONTAL;
             add(fieldNama,gbc);
 
             JLabel labelKategori = new JLabel("Kategori:");
             gbc.gridx = 0;
-            gbc.gridy = 2;
+            gbc.gridy = 3;
             add(labelKategori, gbc);
 
             JTextField fieldKategori = new JTextField(20);
             gbc.gridx = 1;
-            gbc.gridy = 2;
+            gbc.gridy = 3;
             gbc.fill = GridBagConstraints.HORIZONTAL;
             add(fieldKategori, gbc);
 
             JLabel labelHarga = new JLabel("Harga:");
             gbc.gridx = 0;
-            gbc.gridy = 3;
+            gbc.gridy = 4;
             add(labelHarga, gbc);
 
             JTextField fieldHarga = new JTextField(20);
             gbc.gridx = 1;
-            gbc.gridy = 3;
+            gbc.gridy = 4;
             gbc.fill = GridBagConstraints.HORIZONTAL;
             add(fieldHarga, gbc);
 
             JLabel labelStok = new JLabel("Stok:");
             gbc.gridx = 0;
-            gbc.gridy = 4;
+            gbc.gridy = 5;
             add(labelStok, gbc);
 
             JTextField fieldStok = new JTextField(20);
             gbc.gridx = 1;
-            gbc.gridy = 4;
+            gbc.gridy = 5;
             gbc.fill = GridBagConstraints.HORIZONTAL;
             add(fieldStok, gbc);
 
@@ -100,7 +105,7 @@ public class MenuBarang {
     
                     Barang barang = new Barang (id, nama, harga, stok, kategori);
                     ListBarang.tambahBarang("barang.txt", listBarang, barang);
-                    barangTablePanel.tambahBarang(barang);
+                    tabelBarang.tambahBarang(barang);
     
                     JOptionPane.showMessageDialog(owner, "Barang berhasil ditambahkan");
                     dispose();
@@ -118,7 +123,7 @@ public class MenuBarang {
             buttonPanel.add(btnBatal);
 
             gbc.gridx = 0;
-            gbc.gridy = 5;
+            gbc.gridy = 6;
             gbc.gridwidth = 2;
             gbc.anchor = GridBagConstraints.CENTER;
             add(buttonPanel, gbc);
@@ -129,7 +134,7 @@ public class MenuBarang {
 
     public static class MenuHapusBarang extends JDialog {
         private List<Barang> listBarang;
-        public MenuHapusBarang(Frame owner, BarangTablePanel barangTablePanel, List<Barang> listBarang) {
+        public MenuHapusBarang(Frame owner, TabelBarang TabelBarang, List<Barang> listBarang) {
             super(owner, "Hapus Barang", true);
             setLayout(new GridBagLayout());
             GridBagConstraints gbc = new GridBagConstraints();
@@ -137,15 +142,15 @@ public class MenuBarang {
             setSize(300, 150);
             setLocationRelativeTo(null);
     
-            JLabel labelID = new JLabel("Id Barang: ");
+            JLabel labelID = new JLabel("Masukkan id barang yang ingin dihapus ");
             gbc.gridx = 0; 
             gbc.gridy = 0;
             gbc.anchor = GridBagConstraints.WEST;
             add(labelID, gbc);
 
             JTextField fieldId = new JTextField();
-            gbc.gridx = 1;
-            gbc.gridy = 0;
+            gbc.gridx = 0;
+            gbc.gridy = 1;
             gbc.fill = GridBagConstraints.HORIZONTAL;
             add(fieldId, gbc);
     
@@ -184,9 +189,9 @@ public class MenuBarang {
                             ListBarang.saveBarangToFile("barang.txt", listBarang);
     
                             // Hapus barang dari tabel GUI
-                            for (int i = 0; i < barangTablePanel.getRowCount(); i++) {
-                                if ((int) barangTablePanel.getValueAt(i, 0) == id) {
-                                    barangTablePanel.removeRow(i);
+                            for (int i = 0; i < TabelBarang.getRowCount(); i++) {
+                                if ((int) TabelBarang.getValueAt(i, 0) == id) {
+                                    TabelBarang.removeRow(i);
                                     break;
                                 }
                             }
@@ -210,7 +215,7 @@ public class MenuBarang {
             buttonPanel.add(btnBatal);
 
             gbc.gridx = 0;
-            gbc.gridy = 1;
+            gbc.gridy = 2;
             gbc.gridwidth = 2;
             gbc.anchor = GridBagConstraints.CENTER;
             add(buttonPanel, gbc);
@@ -223,7 +228,7 @@ public class MenuBarang {
         private List<Barang> listBarang;
         private Barang barangDitemukan;
 
-        public MenuEditBarang(Frame owner, BarangTablePanel barangTablePanel, List<Barang> listBarang) {
+        public MenuEditBarang(Frame owner, TabelBarang TabelBarang, List<Barang> listBarang) {
             super(owner, "Edit Barang", true);
             this.listBarang = listBarang;
             setLayout(new GridBagLayout());
@@ -357,15 +362,15 @@ public class MenuBarang {
                 // Simpan perubahan ke file
                 ListBarang.saveBarangToFile("barang.txt", listBarang);
 
-                barangTablePanel.refreshTable(listBarang);
+                TabelBarang.refreshTable(listBarang);
                 // Update tabel GUI
-                for (int i = 0; i < barangTablePanel.getRowCount(); i++) {
-                    if ((int) barangTablePanel.getValueAt(i, 0) == barangDitemukan.getId()) {
-                        barangTablePanel.setValueAt(idBaru, i, 0);
-                        barangTablePanel.setValueAt(namaBaru, i, 1);
-                        barangTablePanel.setValueAt(hargaBaru, i, 2);
-                        barangTablePanel.setValueAt(stokBaru, i, 3);
-                        barangTablePanel.setValueAt(kategoriBaru, i, 4);
+                for (int i = 0; i < TabelBarang.getRowCount(); i++) {
+                    if ((int) TabelBarang.getValueAt(i, 0) == barangDitemukan.getId()) {
+                        TabelBarang.setValueAt(idBaru, i, 0);
+                        TabelBarang.setValueAt(namaBaru, i, 1);
+                        TabelBarang.setValueAt(hargaBaru, i, 2);
+                        TabelBarang.setValueAt(stokBaru, i, 3);
+                        TabelBarang.setValueAt(kategoriBaru, i, 4);
                         break;
                     }
                 }

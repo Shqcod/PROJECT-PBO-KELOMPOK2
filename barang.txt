@@ -1,10 +1,50 @@
-1,Laptop ASUS VivoBook,7500000.00,7,Elektronik
-2,Smartphone Samsung Galaxy,4500000.00,15,Elektronik
-3,Printer Canon PIXMA,1200000.00,5,Elektronik
-4,Headphone Sony WH-1000XM4,3500000.00,17,Elektronik
-5,TV LG Smart 4K,6500000.00,5,Elektronik
-6,Sepatu Sneakers Nike,950000.00,30,Pakaian
-7,Tas Ransel Eiger,850000.00,15,Pakaian
-8,Power Bank Anker 20000mAh,550000.00,22,Elektronik
-9,Setrika Maspion,200000.00,40,Elektronik
-10,Blender Philips HR,650000.00,18,Dapur
+1,Blender Philips HR,650000.00,18,Dapur
+2,Kulkas LG 2 Pintu,3500000.00,12,Dapur
+3,Kompor Gas Rinnai,780000.00,20,Dapur
+4,Televisi Samsung 43 Inch,4500000.00,15,Elektronik
+5,Setrika Philips,320000.00,25,Dapur
+6,AC Daikin 1 PK,4100000.00,10,Elektronik
+7,Sofa Minimalis L Shape,5200000.00,8,Furniture
+8,Meja Belajar Kayu,750000.00,30,Furniture
+9,Lemari Pakaian 3 Pintu,2900000.00,5,Furniture
+10,Kipas Angin Maspion,250000.00,40,Elektronik
+11,Rak Buku Besi,1200000.00,14,Furniture
+12,Jam Dinding Seiko,170000.00,50,Perlengkapan Rumah
+13,Vacuum Cleaner Xiaomi,890000.00,10,Elektronik
+14,Ceramic Cookware Set,1200000.00,20,Dapur
+15,Karpet Persia Import,2500000.00,6,Perlengkapan Rumah
+16,Kamera DSLR Canon 200D,7200000.00,7,Elektronik
+17,Laptop Lenovo Ideapad,8500000.00,15,Elektronik
+18,Printer Epson L3110,2300000.00,12,Elektronik
+19,Samsung Galaxy S22,15500000.00,5,Gadget
+20,Sepeda Lipat United,2800000.00,20,Olahraga
+21,Treadmill Elektrik,7500000.00,4,Olahraga
+22,Raket Badminton Yonex,550000.00,50,Olahraga
+23,Toples Kaca Set,300000.00,25,Dapur
+24,Set Pisau Dapur Victorinox,1500000.00,8,Dapur
+25,Kursi Gaming Rexus,1900000.00,15,Furniture
+26,Lampu LED Philips 10W,45000.00,100,Elektronik
+27,Tas Ransel Eiger,750000.00,20,Aksesoris
+28,Kacamata Hitam Ray-Ban,2100000.00,10,Aksesoris
+29,Jaket Gunung The North Face,1350000.00,12,Aksesoris
+30,Kotak P3K Lengkap,85000.00,50,Kesehatan
+31,Dispenser Miyako 2 Galon,670000.00,18,Dapur
+32,Microwave Sharp 22L,1400000.00,10,Dapur
+33,Kamera CCTV Hikvision,450000.00,30,Keamanan
+34,Power Bank Anker 20000mAh,750000.00,15,Gadget
+35,Samsung Smartwatch Galaxy Watch 5,3700000.00,8,Gadget
+36,Sikat Gigi Elektrik Oral-B,550000.00,20,Kesehatan
+37,Sepatu Lari Nike Zoom,2300000.00,12,Olahraga
+38,Matras Yoga Manduka,1200000.00,15,Olahraga
+39,Meja Komputer Minimalis,950000.00,18,Furniture
+40,Headphone Sony WH-1000XM4,4500000.00,6,Elektronik
+41,Lemari Es Mini Bar,3200000.00,5,Dapur
+42,Alat Masak Panggangan Happycall,800000.00,25,Dapur
+43,Panci Presto Oxone,670000.00,20,Dapur
+44,Buku Agenda Kulit,95000.00,50,Perlengkapan Rumah
+45,Penghisap Debu Robot Roomba,5800000.00,10,Elektronik
+46,Senter LED Cree T6,150000.00,40,Keamanan
+47,Kompor Induksi Philips,1900000.00,12,Dapur
+48,Jam Tangan Casio G-Shock,2350000.00,8,Aksesoris
+49,Handuk Mandi Cotton Soft,75000.00,50,Perlengkapan Rumah
+50,Kipas Pendingin Laptop Cooler Master,450000.00,15,Elektronik

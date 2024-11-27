@@ -10,12 +10,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminTransaksiPanel extends JPanel {
+public class TabelTransaksi extends JPanel {
     private List<Transaksi> listTransaksi;
     JTable table;
     private DefaultTableModel tableModel;
 
-    public AdminTransaksiPanel(List<Transaksi> listTransaksi) {
+    public TabelTransaksi(List<Transaksi> listTransaksi) {
         setLayout(new BorderLayout());
 
         // Tabel
@@ -29,6 +29,8 @@ public class AdminTransaksiPanel extends JPanel {
         buttonPanel.setBackground(Color.WHITE);
         JButton btnKonfirmasi = FormComponents.createInteractButton("Konfirmasi", new Color(65, 195, 100), e -> konfirmasiTransaksi());
         buttonPanel.add(btnKonfirmasi);
+        // JButton btnHapusSemua = FormComponents.createInteractButton("Hapus Semua", new Color(65, 195, 100), e -> hapusSemuaTransaksi());
+        // buttonPanel.add(btnHapusSemua);
         add(buttonPanel, BorderLayout.SOUTH);
 
         loadTransaksiData();
@@ -82,7 +84,7 @@ public class AdminTransaksiPanel extends JPanel {
         return tableModel;
     }
 
-    private void konfirmasiTransaksi() {
+    public void konfirmasiTransaksi() {
         int selectedRow = table.getSelectedRow();
         if (selectedRow != -1) {
             String idTransaksi = (String) table.getValueAt(selectedRow, 0);
@@ -133,7 +135,6 @@ public class AdminTransaksiPanel extends JPanel {
             JOptionPane.showMessageDialog(this, "Gagal memperbarui file transaksi.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
 
     public int getRowCount() {
         return tableModel.getRowCount();
