@@ -3,6 +3,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class RegisterPanel extends JPanel {
+    private int adminCounter = 1;
+    private int customerCounter = 1;
     private CardLayout cardLayout;
     private JPanel mainPanel;
     private JTextField usernameField;
@@ -105,9 +107,14 @@ public class RegisterPanel extends JPanel {
 
     }
 
-    private String generateUniqueId(String role){
-        String prefix = role.equals("Admin") ? "admin_" : "customer_";
-        return prefix = java.util.UUID.randomUUID().toString();
+    private String generateUniqueId(String role) {
+        if (role.equalsIgnoreCase("Admin")) {
+            return "A" + (adminCounter++);
+        } else if (role.equalsIgnoreCase("Customer")) {
+            return "C" + (customerCounter++);
+        } else {
+            throw new IllegalArgumentException("Role tidak valid! Harus 'Admin' atau 'Customer'");
+        }
     }
 
     private void saveAccountData(Akun akun) {
@@ -123,7 +130,7 @@ public class RegisterPanel extends JPanel {
 
             // Menulis data ke file yang sesuai
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
-                writer.write(akun.getUsername() + ":"+ akun.getPassword() + ":" + akun.getRole());
+                writer.write(akun.getId() + ":" +akun.getUsername() + ":"+ akun.getPassword() + ":" + akun.getRole());
                 writer.newLine();
             }
         } catch (IOException ex) {

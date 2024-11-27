@@ -1,0 +1,2 @@
+TRX1732691008395;Customer;COD;[3-Printer Canon PIXMA-1200000.00-4-Elektronik],;4800000.00;Menunggu Konfirmasi
+TRX1732691622131;Customer;Banka;[Smartphone Samsung Galaxy-4500000.00-1],[Blender Philips HR-650000.00-12],;12300000.00;Menunggu Konfirmasi

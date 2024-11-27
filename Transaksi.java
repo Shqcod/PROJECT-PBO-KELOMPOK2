@@ -1,39 +1,58 @@
 import java.util.ArrayList;
 
 public class Transaksi {
-    private static int counter = 1; // Digunakan untuk membuat ID transaksi unik
-    private String id;
-    private Customer pelanggan;
-    private ArrayList<Barang> daftarBarang;
+    private ArrayList<Barang> barangDibeli;
+    private Akun customer;
+    private String metodePembayaran;
+    private String keterangan;
+    private String idTransaksi;
+    private double totalHargaBarang; // Tambahkan atribut ini
 
-    public Transaksi(Customer pelanggan, ArrayList<Barang> daftarBarang) {
-        this.id = "TRX" + counter++;
-        this.pelanggan = pelanggan;
-        this.daftarBarang = daftarBarang;
+    public Transaksi(String idTransaksi, Akun customer, ArrayList<Barang> barangDibeli, String metodePembayaran, double getTotalHargaBarang, String keterangan) {
+        this.idTransaksi = idTransaksi; // Sesuai parameter
+        this.customer = customer;
+        this.barangDibeli = new ArrayList<>(barangDibeli);
+        this.metodePembayaran = metodePembayaran;
+        this.keterangan = "Menunggu Konfirmasi"; // Nilai default
+        this.totalHargaBarang = hitungTotalHarga(); // Hitung total harga barang
     }
 
-    public String getId() {
-        return id;
+    // Getter untuk atribut baru
+    public double getTotalHargaBarang() {
+        return totalHargaBarang;
     }
 
-    public Customer getPelanggan() {
-        return pelanggan;
+    // Getter dan setter lainnya
+    public String getID() {
+        return idTransaksi;
     }
 
-    public ArrayList<Barang> getDaftarBarang() {
-        return daftarBarang;
+    public ArrayList<Barang> getBarangDibeli() {
+        return barangDibeli;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("ID Transaksi: ").append(id).append("\n");
-        sb.append("Pelanggan: ").append(pelanggan.getUsername()).append("\n");
-        sb.append("Barang: \n");
-        for (Barang barang : daftarBarang) {
-            sb.append(" - ").append(barang.getNama()).append(", Harga: ").append(barang.getHarga())
-              .append(", Jumlah: ").append(barang.getStok()).append("\n");
+    public Akun getCustomer() {
+        return customer;
+    }
+
+    public String getMetodePembayaran() {
+        return metodePembayaran;
+    }
+
+    public String getKeterangan() {
+        return keterangan;
+    }
+
+    public void setKeterangan(String keterangan) {
+        this.keterangan = keterangan;
+    }
+
+    // Method untuk menghitung total harga barang
+    private double hitungTotalHarga() {
+        double total = 0;
+        for (Barang barang : barangDibeli) {
+            total += barang.getHarga() * barang.getStok(); // Harga * jumlah barang
         }
-        return sb.toString();
+        return total;
     }
 }

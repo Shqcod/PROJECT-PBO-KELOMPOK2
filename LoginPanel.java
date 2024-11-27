@@ -35,9 +35,8 @@ public class LoginPanel extends JPanel {
         
         // Tambahkan elemen ke formPanel
         JLabel titleLabel = new JLabel("Log In");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        titleLabel.setForeground(new Color(65, 195, 100));
         formPanel.add(titleLabel);
 
         formPanel.add(Box.createRigidArea(new Dimension(0, 20)));
@@ -56,11 +55,12 @@ public class LoginPanel extends JPanel {
         formPanel.add(passwordField);
         formPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
-        loginButton = FormComponents.createButton("Masuk", new Color(65, 195, 100), e -> {
+        loginButton = FormComponents.createButton("Masuk",new Color(65, 195, 100), e -> {
             {
                 String username = usernameField.getText();
                 String password = new String(passwordField.getPassword());
                 String role = (String) roleComboBox.getSelectedItem();
+
                 if(validateLoginFromFile(username, password, role)){
                     if (role.equals("Admin")) {
                         // Login sebagai Admin
@@ -111,7 +111,7 @@ public class LoginPanel extends JPanel {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] credentials = line.split(":"); 
-                if (credentials[0].equals(username) && credentials[1].equals(password)) {
+                if (credentials[1].equals(username) && credentials[2].equals(password)) {
                     return true;
                 }
             }
@@ -120,4 +120,7 @@ public class LoginPanel extends JPanel {
         }
         return false; 
     }
+    
+
+    
 }

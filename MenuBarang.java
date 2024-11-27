@@ -220,119 +220,119 @@ public class MenuBarang {
     }
 
    public static class MenuEditBarang extends JDialog {
-    private List<Barang> listBarang;
-    private Barang barangDitemukan;
+        private List<Barang> listBarang;
+        private Barang barangDitemukan;
 
-    public MenuEditBarang(Frame owner, BarangTablePanel barangTablePanel, List<Barang> listBarang) {
-        super(owner, "Edit Barang", true);
-        this.listBarang = listBarang;
-        setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5);
-        setSize(300, 150);
-        setLocationRelativeTo(null);
+        public MenuEditBarang(Frame owner, BarangTablePanel barangTablePanel, List<Barang> listBarang) {
+            super(owner, "Edit Barang", true);
+            this.listBarang = listBarang;
+            setLayout(new GridBagLayout());
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.insets = new Insets(5, 5, 5, 5);
+            setSize(300, 150);
+            setLocationRelativeTo(null);
 
-        // Step 1: OptionPane untuk Input ID Barang
-        String idInput = JOptionPane.showInputDialog(owner, "Masukkan ID Barang yang ingin diedit:");
-        if (idInput == null) {
+            // Step 1: OptionPane untuk Input ID Barang
+            String idInput = JOptionPane.showInputDialog(owner, "Masukkan ID Barang yang ingin diedit:");
+            if (idInput == null) {
             // Jika user membatalkan input
             dispose();
             return;
-        }
+            }
 
-        // Validasi ID dan cari barang
-        barangDitemukan = null;
-        try {
-            int id = Integer.parseInt(idInput);
-            for (Barang barang : listBarang) {
-                if (barang.getId() == id) {
+            // Validasi ID dan cari barang
+            barangDitemukan = null;
+            try {
+                int id = Integer.parseInt(idInput);
+                for (Barang barang : listBarang) {
+                    if (barang.getId() == id) {
                     barangDitemukan = barang;
                     break;
+                    }
                 }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(owner, "ID tidak valid.");
+                dispose();
+                return;
             }
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(owner, "ID tidak valid.");
-            dispose();
-            return;
-        }
 
-        if (barangDitemukan == null) {
-            JOptionPane.showMessageDialog(owner, "Barang dengan ID " + idInput + " tidak ditemukan.");
-            dispose();
-            return;
-        }
+            if (barangDitemukan == null) {
+                JOptionPane.showMessageDialog(owner, "Barang dengan ID " + idInput + " tidak ditemukan.");
+                dispose();
+                return;
+            }
 
-        // Step 2: Dialog untuk Edit Data Barang
-        // Menampilkan Form dengan data lama
-        setLayout(new GridBagLayout());
-        gbc.insets = new Insets(5, 5, 5, 5);
+            // Step 2: Dialog untuk Edit Data Barang
+            // Menampilkan Form dengan data lama
+            setLayout(new GridBagLayout());
+            gbc.insets = new Insets(5, 5, 5, 5);
 
-        JLabel labelId = new JLabel("ID: ");
-        gbc.gridx = 0; 
-        gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.WEST;
-        add(labelId, gbc);
+            JLabel labelId = new JLabel("ID: ");
+            gbc.gridx = 0; 
+            gbc.gridy = 0;
+            gbc.anchor = GridBagConstraints.WEST;
+            add(labelId, gbc);
 
-        JTextField fieldId = new JTextField(String.valueOf(barangDitemukan.getId()));
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(fieldId, gbc);
+            JTextField fieldId = new JTextField(String.valueOf(barangDitemukan.getId()));
+            gbc.gridx = 1;
+            gbc.gridy = 0;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            add(fieldId, gbc);
 
-        JLabel labelNama = new JLabel("Nama Barang:");
-        gbc.gridx = 0; 
-        gbc.gridy = 1;
-        gbc.fill = GridBagConstraints.NONE;
-        add(labelNama, gbc);
+            JLabel labelNama = new JLabel("Nama Barang:");
+            gbc.gridx = 0; 
+            gbc.gridy = 1;
+            gbc.fill = GridBagConstraints.NONE;
+            add(labelNama, gbc);
 
-        JTextField fieldNama = new JTextField(barangDitemukan.getNama());
-        gbc.gridx = 1;
-        gbc. gridy = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(fieldNama,gbc);
+            JTextField fieldNama = new JTextField(barangDitemukan.getNama());
+            gbc.gridx = 1;
+            gbc. gridy = 1;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            add(fieldNama,gbc);
 
-        JLabel labelKategori = new JLabel("Kategori:");
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        add(labelKategori, gbc);
+            JLabel labelKategori = new JLabel("Kategori:");
+            gbc.gridx = 0;
+            gbc.gridy = 2;
+            add(labelKategori, gbc);
 
-        JTextField fieldKategori = new JTextField(barangDitemukan.getKategori());
-        gbc.gridx = 1;
-        gbc.gridy = 2;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(fieldKategori, gbc);
+            JTextField fieldKategori = new JTextField(barangDitemukan.getKategori());
+            gbc.gridx = 1;
+            gbc.gridy = 2;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            add(fieldKategori, gbc);
 
-        JLabel labelHarga = new JLabel("Harga:");
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        add(labelHarga, gbc);
+            JLabel labelHarga = new JLabel("Harga:");
+            gbc.gridx = 0;
+            gbc.gridy = 3;
+            add(labelHarga, gbc);
 
-        JTextField fieldHarga = new JTextField(String.valueOf(barangDitemukan.getHarga()));
-        gbc.gridx = 1;
-        gbc.gridy = 3;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(fieldHarga, gbc);
+            JTextField fieldHarga = new JTextField(String.valueOf(barangDitemukan.getHarga()));
+            gbc.gridx = 1;
+            gbc.gridy = 3;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            add(fieldHarga, gbc);
 
-        JLabel labelStok = new JLabel("Stok:");
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        add(labelStok, gbc);
+            JLabel labelStok = new JLabel("Stok:");
+            gbc.gridx = 0;
+            gbc.gridy = 4;
+            add(labelStok, gbc);
 
-        JTextField fieldStok = new JTextField(String.valueOf(barangDitemukan.getStok()));
-        gbc.gridx = 1;
-        gbc.gridy = 4;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(fieldStok, gbc);
+            JTextField fieldStok = new JTextField(String.valueOf(barangDitemukan.getStok()));
+            gbc.gridx = 1;
+            gbc.gridy = 4;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            add(fieldStok, gbc);
 
-        JButton btnEdit = new JButton("Simpan");
-        btnEdit.addActionListener(e -> {
-            try {
-                // Ambil data dari input
-                int idBaru = Integer.parseInt(fieldId.getText());
-                String namaBaru = fieldNama.getText();
-                String kategoriBaru = fieldKategori.getText();
-                double hargaBaru = Double.parseDouble(fieldHarga.getText());
-                int stokBaru = Integer.parseInt(fieldStok.getText());
+            JButton btnEdit = new JButton("Simpan");
+            btnEdit.addActionListener(e -> {
+                try {
+                    // Ambil data dari input
+                    int idBaru = Integer.parseInt(fieldId.getText());
+                    String namaBaru = fieldNama.getText();
+                    String kategoriBaru = fieldKategori.getText();
+                    double hargaBaru = Double.parseDouble(fieldHarga.getText());
+                    int stokBaru = Integer.parseInt(fieldStok.getText());
 
                 // Validasi: Cek jika ID baru sudah digunakan oleh barang lain
                 boolean idSudahAda = false;
@@ -393,7 +393,8 @@ public class MenuBarang {
         add(buttonPanel, gbc);
 
         pack();
+        }
+    
     }
-}
-
+    
 }

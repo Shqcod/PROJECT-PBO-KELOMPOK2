@@ -27,11 +27,10 @@ public class AdminDashboard extends JPanel {
         menuPanel.add(Box.createRigidArea(new Dimension(0, 25)));
         
         JLabel WelcomeLabel = new JLabel("Admin Dashboard");
-        WelcomeLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        WelcomeLabel.setFont(new Font("Arial", Font.BOLD, 16));
         WelcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        WelcomeLabel.setForeground(new Color(65, 195, 100));
         menuPanel.add(WelcomeLabel);
-        menuPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        menuPanel.add(Box.createRigidArea(new Dimension(0, 25)));
 
         // ImageIcon originalIcon = new ImageIcon("assets\\admin.png");
         // Image image = originalIcon.getImage(); // Mengambil image dari ImageIcon
@@ -49,16 +48,16 @@ public class AdminDashboard extends JPanel {
         });
        
         menuPanel.add(btnLihatBarang);
-        menuPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        menuPanel.add(Box.createRigidArea(new Dimension(0, 25)));
 
         btnLihatTransaksi = FormComponents.createDashboardButton("Lihat Transaksi", new Color(65, 195, 100), e -> {
-            AdminLihatTransaksi lihatTransaksi = new AdminLihatTransaksi(cardPanel, cardLayout, frame);
+            RiwayatTransaksiAdmin lihatTransaksi = new RiwayatTransaksiAdmin(cardPanel, cardLayout, frame);
             cardPanel.add(lihatTransaksi, "LihatTransaksi");
             cardLayout.show(cardPanel, "LihatTransaksi");
         });
 
         menuPanel.add(btnLihatTransaksi);
-        menuPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        menuPanel.add(Box.createRigidArea(new Dimension(0, 25)));
 
         btnKeluar = FormComponents.createDashboardButton("Keluar", new Color(65, 195, 100), e ->{
             cardLayout.show(cardPanel,"Login");
