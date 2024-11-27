@@ -2,14 +2,18 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class TransaksiTablePanel extends JPanel {
     private List<Transaksi> listTransaksi;
     JTable table;
     private DefaultTableModel tableModel;
-    private JComboBox<String> categoryComboBox;
 
     public TransaksiTablePanel(List<Transaksi> listTransaksi) {
         setLayout(new BorderLayout());
@@ -21,48 +25,37 @@ public class TransaksiTablePanel extends JPanel {
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane, BorderLayout.CENTER);
 
-        // Kategori
-        JPanel filterPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        JLabel filterLabel = new JLabel("Kategori:");
-        filterPanel.setBackground(Color.WHITE);
-        filterPanel.add(filterLabel);
+        JButton btnKonfirmasi = new JButton("Konfirmasi");
+        btnKonfirmasi.addActionListener(e -> konfirmasiTransaksi());
+        add(btnKonfirmasi, BorderLayout.SOUTH);
 
-       // populateTable(listTransaksi);
+        loadTransaksiData();
         adjustColumnWidths();
     }
 
-    private String[] getCategories(List<Barang> barangList) {
-        return barangList.stream()
-                .map(Barang::getKategori)
-                .distinct()
-                .toArray(String[]::new);
-    }
+    private void loadTransaksiData() {
+        String fileName = "transaksi.txt";  // Nama file transaksi
 
-    // private void populateTable(List<Transaksi> listTransaksi) {
-    //     tableModel.setRowCount(0); // Hapus data lama
-    //     for (Transaksi transaksi : listTransaksi) {
-    //         tableModel.addRow(new Object[]{
-    //                 barang.getId(),
-    //                 barang.getNama(),
-    //                 barang.getHarga(),
-    //                 barang.getStok(),
-    //                 barang.getKategori()
-    //         });
-    //     }
-    // }
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Memisahkan data berdasarkan tanda titik koma
+                String[] transaksiData = line.split(";");
+                
+                // Mengambil dan memformat data transaksi
+                String idTransaksi = transaksiData[0];
+                String customer = transaksiData[1];
+                String metodePembayaran = transaksiData[2];
+                String barangDibeli = transaksiData[3].replace(",", " "); // Menggabungkan barang dalam satu kolom
+                String totalHarga = transaksiData[4];
+                String keterangan = transaksiData[5];
 
-    private void filterTable(List<Barang> barangList) {
-        String selectedCategory = (String) categoryComboBox.getSelectedItem();
-        List<Barang> filteredList;
-        if (selectedCategory.equals("Semua")) {
-            filteredList = barangList;
-        } else {
-            filteredList = barangList.stream()
-                    .filter(barang -> barang.getKategori().equalsIgnoreCase(selectedCategory))
-                    .collect(Collectors.toList());
+                // Menambahkan data transaksi ke dalam model tabel
+                tableModel.addRow(new Object[] {idTransaksi, customer, metodePembayaran, barangDibeli, totalHarga, keterangan});
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Gagal membaca file transaksi", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        //populateTable(filteredList);
-        adjustColumnWidths();
     }
 
     // Menyesuaikan lebar kolom berdasarkan panjang data
@@ -85,44 +78,58 @@ public class TransaksiTablePanel extends JPanel {
         return tableModel;
     }
 
-    public void tambahBarang(Barang barang){
-        tableModel.addRow(new Object[] {
-            barang.getId(),
-            barang.getNama(),
-            barang.getHarga(),
-            barang.getStok(),
-            barang.getKategori()
-        });
-    }
-
-    public void editBarang(int id, Barang barang) {
-        for (int i = 0; i < tableModel.getRowCount(); i++) {
-            if ((int) tableModel.getValueAt(i, 0) == id) {
-                tableModel.setValueAt(barang.getNama(), i, 1);
-                tableModel.setValueAt(barang.getHarga(), i, 2);
-                tableModel.setValueAt(barang.getStok(), i, 3);
-                tableModel.setValueAt(barang.getKategori(), i, 4);
-                break;
-            }
-        }
-    }
-
-    public void hapusBarang(int id) {
-        for (int i = 0; i < tableModel.getRowCount(); i++) {
-            if ((int) tableModel.getValueAt(i, 0) == id) {
-                tableModel.removeRow(i);
-                break;
-            }
-        }
-    }
-
-    public int getSelectedRowId() {
+    private void konfirmasiTransaksi() {
         int selectedRow = table.getSelectedRow();
         if (selectedRow != -1) {
-            return (int) table.getValueAt(selectedRow, 0);  // Mengambil ID barang dari kolom pertama
+            String idTransaksi = (String) table.getValueAt(selectedRow, 0);
+
+            // Menampilkan pop-up konfirmasi
+            int confirm = JOptionPane.showConfirmDialog(this, 
+                    "Konfirmasi transaksi ini?", 
+                    "Konfirmasi", JOptionPane.YES_NO_OPTION);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                // Mengubah keterangan transaksi menjadi "Sukses"
+                updateKeterangan(idTransaksi);
+
+                // Refresh tabel untuk menampilkan status terbaru
+                loadTransaksiData();
+
+                JOptionPane.showMessageDialog(this, "Transaksi berhasil dikonfirmasi.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Pilih transaksi untuk dikonfirmasi.", "Peringatan", JOptionPane.WARNING_MESSAGE);
         }
-        return -1;  // Jika tidak ada baris yang dipilih
     }
+
+     // Fungsi untuk memperbarui keterangan transaksi di file
+    private void updateKeterangan(String idTransaksi) {
+        List<String> transaksiList = new ArrayList<>();
+        String fileName = "transaksi.txt";
+        
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] transaksiData = line.split(";");
+                if (transaksiData[0].equals(idTransaksi)) {
+                    // Update keterangan menjadi "Sukses"
+                    transaksiData[5] = "Sukses";
+                }
+                // Menambahkan transaksi ke dalam list
+                transaksiList.add(String.join(";", transaksiData));
+            }
+
+            // Menulis ulang file dengan data yang telah diperbarui
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+                for (String transaksi : transaksiList) {
+                    writer.write(transaksi + "\n");
+                }
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Gagal memperbarui file transaksi.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
 
     public int getRowCount() {
         return tableModel.getRowCount();
@@ -145,13 +152,14 @@ public class TransaksiTablePanel extends JPanel {
         DefaultTableModel model = getModel();
         model.setRowCount(0); // Hapus semua baris
     
-        for (Barang barang : listBarang) {
+        for (Transaksi transaksi : listTransaksi) {
             model.addRow(new Object[] {
-                barang.getId(),
-                barang.getNama(),
-                barang.getHarga(),
-                barang.getStok(),
-                barang.getKategori()
+                transaksi.getID(),
+                transaksi.getCustomer(),
+                transaksi.getMetodePembayaran(),
+                transaksi.getBarangDibeli(),
+                transaksi.getTotalHargaBarang(),
+                transaksi.getKeterangan()
             });
         }
     }

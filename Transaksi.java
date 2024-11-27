@@ -55,4 +55,8 @@ public class Transaksi {
         }
         return total;
     }
+
+    public void konfirmasiKeterangan(String keterangan){
+        this.keterangan = "Sukses";
+    }
 }

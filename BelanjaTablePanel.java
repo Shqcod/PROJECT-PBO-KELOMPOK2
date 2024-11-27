@@ -13,7 +13,7 @@ public class BelanjaTablePanel extends JPanel {
     private DefaultTableModel tableModel;
     private JComboBox<String> categoryComboBox;
     private List<Barang> barangList;
-    private List<Barang> keranjang;
+    private ArrayList<Barang> keranjang;
     //private Akun customer;
 
     public BelanjaTablePanel(List<Barang> barangList) {
@@ -167,11 +167,16 @@ public class BelanjaTablePanel extends JPanel {
         String idTransaksi = "TRX" + System.currentTimeMillis();
         String keterangan = "Menunggu Konfirmasi";
 
+        List<Transaksi> listTransaksi = new ArrayList<>();
+
         double totalHarga = 0;
         for (Barang barang : keranjang){
             totalHarga += barang.getHarga() * barang.getStok();
         }
 
+        Transaksi transaksi = new Transaksi(idTransaksi, new Akun(),keranjang, metodePembayaran, totalHarga, keterangan );
+
+        
         // Simpan transaksi ke file
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("transaksi.txt", true))) {
             StringBuilder barangString = new StringBuilder();
@@ -190,7 +195,7 @@ public class BelanjaTablePanel extends JPanel {
             JOptionPane.showMessageDialog(this, "Gagal menyimpan transaksi ke file!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-    
+        listTransaksi.add(transaksi);
         keranjang.clear(); // Bersihkan keranjang setelah checkout
         JOptionPane.showMessageDialog(this, "Checkout berhasil! Data transaksi disimpan.");
     }

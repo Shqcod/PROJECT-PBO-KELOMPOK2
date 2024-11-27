@@ -4,6 +4,10 @@ public class Akun {
     private String password;
     private String role;
 
+    public Akun(){
+        username = "Customer";
+    }
+
     public Akun(String id, String username, String password, String role){
         this.id = id;
         this.username = username;
@@ -25,6 +29,10 @@ public class Akun {
 
     public String getRole(){
         return role;
+    }
+
+    public void setUsername(String username){
+        this.username = username;
     }
 
     @Override
