@@ -1,3 +1,4 @@
 C1:ada:11111111:Customer
 C2:pelanggan1:password:Customer
 C1:Masukkan username anda:Masukkan password:Customer
+C1:Hans:password:Customer

@@ -12,6 +12,7 @@ public class LoginPanel extends JPanel {
     private JPanel cardPanel;
     private CardLayout cardLayout;
     private JFrame frame;
+    private Akun currentUser;
 
     public LoginPanel(JPanel mainPanel, CardLayout cardLayout, JFrame frame) {
         this.frame = frame;
@@ -57,31 +58,32 @@ public class LoginPanel extends JPanel {
         formPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
         loginButton = FormComponents.createButton("Masuk",new Color(65, 195, 100), e -> {
-            {
+            
                 String username = usernameField.getText();
                 String password = new String(passwordField.getPassword());
                 String role = (String) roleComboBox.getSelectedItem();
 
-                if(validateLoginFromFile(username, password, role)){
+                Akun akun = getAccLoginFromFile(username, password, role);
+
+                if (akun != null) {
+                    currentUser = akun; // Simpan akun yang sedang login
                     if (role.equals("Admin")) {
                         // Login sebagai Admin
-                        AdminDashboard adminDashboard = new AdminDashboard(cardPanel, cardLayout, frame);
+                        AdminDashboard adminDashboard = new AdminDashboard(cardPanel, cardLayout, frame, currentUser);
                         cardPanel.add(adminDashboard, "AdminDashboard");
                         cardLayout.show(cardPanel, "AdminDashboard");
                     } else {
-                        // Login sebagai User
-                        CustomerDashboard customerDashboard = new CustomerDashboard(cardPanel, cardLayout, frame);
+                        // Login sebagai Customer
+                        CustomerDashboard customerDashboard = new CustomerDashboard(cardPanel, cardLayout, frame, currentUser);
                         cardPanel.add(customerDashboard, "CustomerDashboard");
                         cardLayout.show(cardPanel, "CustomerDashboard");
-                    } 
-                    
+                    }
                 } else {
                     // Jika login gagal
                     JOptionPane.showMessageDialog(frame, "Akun tidak ditemukan");
-                    }
-                
-            }
-        });
+                }
+            });
+            
         formPanel.add(loginButton);
 
         formPanel.add(Box.createRigidArea(new Dimension(0, 20)));
@@ -106,20 +108,25 @@ public class LoginPanel extends JPanel {
         add(backgroundPanel, BorderLayout.CENTER);
     }
 
-    private boolean validateLoginFromFile(String username, String password, String role) {
+    private Akun getAccLoginFromFile(String username, String password, String role) {
         String fileName = role.equals("Admin") ? "admin.txt" : "customer.txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] credentials = line.split(":"); 
                 if (credentials[1].equals(username) && credentials[2].equals(password)) {
-                    return true;
+                    String id = credentials[0];
+                    if (role.equals("Admin")) {
+                        return new Admin(id, username, password, role);
+                    } else {
+                        return new Customer(id, username, password, role);
+                    }
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return false; 
+        return null; // Login gagal
     }
     
 

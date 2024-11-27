@@ -1,4 +1,4 @@
-1,Blender Philips HR,650000.00,18,Dapur
+1,Blender Philips HR,650000.00,5,Dapur
 2,Kulkas LG 2 Pintu,3500000.00,12,Dapur
 3,Kompor Gas Rinnai,780000.00,20,Dapur
 4,Televisi Samsung 43 Inch,4500000.00,15,Elektronik
@@ -10,11 +10,11 @@
 10,Kipas Angin Maspion,250000.00,40,Elektronik
 11,Rak Buku Besi,1200000.00,14,Furniture
 12,Jam Dinding Seiko,170000.00,50,Perlengkapan Rumah
-13,Vacuum Cleaner Xiaomi,890000.00,10,Elektronik
+13,Vacuum Cleaner Xiaomi,890000.00,9,Elektronik
 14,Ceramic Cookware Set,1200000.00,20,Dapur
 15,Karpet Persia Import,2500000.00,6,Perlengkapan Rumah
 16,Kamera DSLR Canon 200D,7200000.00,7,Elektronik
-17,Laptop Lenovo Ideapad,8500000.00,15,Elektronik
+17,Laptop Lenovo Ideapad,8500000.00,14,Elektronik
 18,Printer Epson L3110,2300000.00,12,Elektronik
 19,Samsung Galaxy S22,15500000.00,5,Gadget
 20,Sepeda Lipat United,2800000.00,20,Olahraga

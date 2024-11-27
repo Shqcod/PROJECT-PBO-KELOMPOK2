@@ -10,15 +10,17 @@ import java.util.stream.Collectors;
 
 public class CustomerBelanjaPanel extends JPanel {
     JTable table;
+    private Akun currentUser;
     private DefaultTableModel tableModel;
     private JComboBox<String> categoryComboBox;
     private List<Barang> barangList;
     private ArrayList<Barang> keranjang;
     //private Akun customer;
 
-    public CustomerBelanjaPanel(List<Barang> barangList) {
+    public CustomerBelanjaPanel(List<Barang> barangList, Akun currentUser) {
         this.barangList = barangList;
         this.keranjang = new ArrayList<>();
+        this.currentUser = currentUser;
 
         setLayout(new BorderLayout());
 
@@ -192,7 +194,7 @@ public class CustomerBelanjaPanel extends JPanel {
         }
     
         // Buat objek Transaksi
-        Transaksi transaksi = new Transaksi(idTransaksi, new Akun(), keranjang, metodePembayaran, totalHarga, keterangan);
+        Transaksi transaksi = new Transaksi(idTransaksi, currentUser, keranjang, metodePembayaran, totalHarga, keterangan);
     
         // Buat objek Pembayaran berdasarkan metode yang dipilih
         Pembayaran pembayaran;
@@ -225,7 +227,7 @@ public class CustomerBelanjaPanel extends JPanel {
             }
     
             String transaksilist = String.format("%s;%s;%s;%s;%.2f;%s\n",
-                    idTransaksi, "Customer", metodePembayaran, barangString.toString(), totalHarga, keterangan);
+                    idTransaksi, currentUser.getUsername(), metodePembayaran, barangString.toString(), totalHarga, keterangan);
     
             writer.write(transaksilist);
         } catch (IOException e) {
@@ -235,7 +237,7 @@ public class CustomerBelanjaPanel extends JPanel {
     
         // Tampilkan pesan sukses dan invoice
         JOptionPane.showMessageDialog(this, 
-            "Checkout berhasil!\nInvoice telah dicetak.\n\n" + invoice.toString(),
+            "Checkout berhasil, tunggu konfirmasi anda",
             "Sukses",
             JOptionPane.INFORMATION_MESSAGE);
         

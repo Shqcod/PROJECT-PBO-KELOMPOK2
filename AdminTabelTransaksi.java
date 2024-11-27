@@ -10,12 +10,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TabelTransaksi extends JPanel {
+public class AdminTabelTransaksi extends JPanel {
     private List<Transaksi> listTransaksi;
     JTable table;
     private DefaultTableModel tableModel;
 
-    public TabelTransaksi(List<Transaksi> listTransaksi) {
+    public AdminTabelTransaksi(List<Transaksi> listTransaksi) {
         setLayout(new BorderLayout());
 
         // Tabel
@@ -29,12 +29,11 @@ public class TabelTransaksi extends JPanel {
         buttonPanel.setBackground(Color.WHITE);
         JButton btnKonfirmasi = FormComponents.createInteractButton("Konfirmasi", new Color(65, 195, 100), e -> konfirmasiTransaksi());
         buttonPanel.add(btnKonfirmasi);
-        // JButton btnHapusSemua = FormComponents.createInteractButton("Hapus Semua", new Color(65, 195, 100), e -> hapusSemuaTransaksi());
-        // buttonPanel.add(btnHapusSemua);
+    
         add(buttonPanel, BorderLayout.SOUTH);
 
         loadTransaksiData();
-        adjustColumnWidths();
+        setTableColumnWidths();
     }
 
     private void loadTransaksiData() {
@@ -65,20 +64,13 @@ public class TabelTransaksi extends JPanel {
     }
 
     // Menyesuaikan lebar kolom berdasarkan panjang data
-    private void adjustColumnWidths() {
-        for (int i = 0; i < table.getColumnCount(); i++) {
-            int columnIndex = i;
-            TableColumn column = table.getColumnModel().getColumn(columnIndex);
-            int maxWidth = 0;
-            // Menghitung panjang karakter terbesar pada kolom tersebut
-            for (int row = 0; row < table.getRowCount(); row++) {
-                Object value = table.getValueAt(row, columnIndex);
-                int length = value != null ? value.toString().length() : 0;
-                maxWidth = Math.max(maxWidth, length);
-            }
-            // Menyesuaikan lebar kolom berdasarkan panjang data
-            column.setPreferredWidth(maxWidth * 10);  // Menyesuaikan lebar (dikali 10 untuk padding)
-        }
+    private void setTableColumnWidths() {
+        table.getColumnModel().getColumn(0).setPreferredWidth(145); // ID Transaksi
+        table.getColumnModel().getColumn(1).setPreferredWidth(100); // Customer
+        table.getColumnModel().getColumn(2).setPreferredWidth(150); // Metode Pembayaran
+        table.getColumnModel().getColumn(3).setPreferredWidth(250); // Barang yang Dibeli
+        table.getColumnModel().getColumn(4).setPreferredWidth(100); // Total Harga
+        table.getColumnModel().getColumn(5).setPreferredWidth(150); // Keterangan
     }
     public DefaultTableModel getModel() {
         return tableModel;

@@ -12,7 +12,7 @@ public class DaftarBarangCustomer extends JPanel {
     private CustomerBelanjaPanel tabelBarang;
     private Keranjang keranjang;
 
-    public DaftarBarangCustomer(JPanel cardPanel, CardLayout cardLayout, JFrame frame) {
+    public DaftarBarangCustomer(JPanel cardPanel, CardLayout cardLayout, JFrame frame, Akun currentUser) {
         this.cardPanel = cardPanel;
         this.cardLayout = cardLayout;
         this.frame = frame;
@@ -39,7 +39,7 @@ public class DaftarBarangCustomer extends JPanel {
         containerPanel.add(Box.createRigidArea(new Dimension(0, 23)));
 
         List<Barang> barangList = ListBarang.loadBarangFromFile("barang.txt");
-        tabelBarang = new CustomerBelanjaPanel(barangList);
+        tabelBarang = new CustomerBelanjaPanel(barangList, currentUser);
         containerPanel.setBorder(new EmptyBorder(10, 10, 50, 10));
         containerPanel.add(tabelBarang, BorderLayout.CENTER);
 

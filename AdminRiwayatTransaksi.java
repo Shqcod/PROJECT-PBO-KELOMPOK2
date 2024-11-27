@@ -8,7 +8,7 @@ public class AdminRiwayatTransaksi extends JPanel {
     private CardLayout cardLayout;
     private JFrame frame;
     private JButton btnKembali;
-    private TabelTransaksi transaksiTable;
+    private AdminTabelTransaksi transaksiTable;
 
     public AdminRiwayatTransaksi(JPanel cardPanel, CardLayout cardLayout, JFrame frame) {
         this.cardPanel = cardPanel;
@@ -37,7 +37,7 @@ public class AdminRiwayatTransaksi extends JPanel {
         containerPanel.add(Box.createRigidArea(new Dimension(0, 23)));
 
         List<Transaksi> listTransaksi = FileTransaksi.bacaTransaksiDariFile("transaksi.txt");
-        transaksiTable = new TabelTransaksi(listTransaksi);
+        transaksiTable = new AdminTabelTransaksi(listTransaksi);
         containerPanel.setBorder(new EmptyBorder(10, 10, 50, 10));
         containerPanel.add(transaksiTable, BorderLayout.CENTER);
 

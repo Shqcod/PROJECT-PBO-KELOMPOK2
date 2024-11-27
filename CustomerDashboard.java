@@ -8,11 +8,13 @@ public class CustomerDashboard extends JPanel {
     private CardLayout cardLayout;
     private JFrame frame;
     private JButton btnBelanja, btnTransaksi, btnKeluar;
+    private Akun currentUser;
 
-    public CustomerDashboard(JPanel cardPanel, CardLayout cardLayout, JFrame frame) {
+    public CustomerDashboard(JPanel cardPanel, CardLayout cardLayout, JFrame frame, Akun currentUser) {
         this.cardPanel = cardPanel;
         this.cardLayout = cardLayout;
         this.frame = frame;
+        this.currentUser = currentUser;
 
         // Background panel dengan gambar
         BackgroundPanel backgroundPanel = new BackgroundPanel("assets\\background.jpg");
@@ -30,7 +32,7 @@ public class CustomerDashboard extends JPanel {
 
         menuPanel.add(Box.createRigidArea(new Dimension(0, 25)));
 
-        JLabel welcomeLabel = new JLabel("Customer Dashboard");
+        JLabel welcomeLabel = new JLabel("Selamat Datang" + currentUser.getUsername());
         welcomeLabel.setFont(new Font("Arial", Font.BOLD, 16));
         welcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         menuPanel.add(welcomeLabel);
@@ -38,12 +40,12 @@ public class CustomerDashboard extends JPanel {
 
         // Tombol Belanja
         btnBelanja = FormComponents.createDashboardButton("Belanja", new Color(65, 195, 100), e -> {
-            DaftarBarangCustomer daftarBarangCustomer = new DaftarBarangCustomer(cardPanel, cardLayout, frame);
+            DaftarBarangCustomer daftarBarangCustomer = new DaftarBarangCustomer(cardPanel, cardLayout, frame, currentUser);
             cardPanel.add(daftarBarangCustomer, "DaftarBarangCustomer");
             cardLayout.show(cardPanel, "DaftarBarangCustomer");
         });
         btnTransaksi = FormComponents.createDashboardButton("Riwayat Transaksi", new Color(65, 195, 100), e -> {
-            DaftarBarangCustomer daftarBarangCustomer = new DaftarBarangCustomer(cardPanel, cardLayout, frame);
+            DaftarBarangCustomer daftarBarangCustomer = new DaftarBarangCustomer(cardPanel, cardLayout, frame, currentUser);
             cardPanel.add(daftarBarangCustomer, "DaftarBarangCustomer");
             cardLayout.show(cardPanel, "DaftarBarangCustomer");
         });

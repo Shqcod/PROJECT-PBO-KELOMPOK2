@@ -5,12 +5,14 @@ public class AdminDashboard extends JPanel {
     private JPanel cardPanel;
     private CardLayout cardLayout;
     private JFrame frame;
+    private Akun currentUser;
     private JButton btnLihatBarang, btnLihatTransaksi, btnKeluar;
 
-    public AdminDashboard(JPanel cardPanel, CardLayout cardLayout, JFrame frame) {
+    public AdminDashboard(JPanel cardPanel, CardLayout cardLayout, JFrame frame, Akun currentUser) {
         this.cardPanel = cardPanel;
         this.cardLayout = cardLayout;
         this.frame = frame;
+        this.currentUser = currentUser;
 
         BackgroundPanel backgroundPanel = new BackgroundPanel("assets\\background.jpg");
         backgroundPanel.setImageSize(850, 850);
