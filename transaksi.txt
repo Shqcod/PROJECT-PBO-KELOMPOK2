@@ -21,3 +21,6 @@ TRX1732704980755;Customer;QRIS;[Laptop ASUS VivoBook,7500000.00,1],;7500000.00;M
 TRX1732705198306;Customer;QRIS;[Laptop ASUS VivoBook,7500000.00,1],;7500000.00;Menunggu Konfirmasi
 TRX1732706559174;Customer;QRIS;[Laptop ASUS VivoBook,7500000.00,1],;7500000.00;Menunggu Konfirmasi
 TRX1732707722093;Customer;Bank Transfer;[Power Bank Anker 20000mAh,550000.00,3],;1650000.00;Menunggu Konfirmasi
+TRX1732709042916;Customer;COD;[Printer Canon PIXMA,1200000.00,3],;3600000.00;Menunggu Konfirmasi
+TRX1732709082030;Customer;Bank Transfer;[Headphone Sony WH-1000XM4,3500000.00,3],;10500000.00;Menunggu Konfirmasi
+TRX1732709103623;Customer;QRIS;[Blender Philips HR,650000.00,2],;1300000.00;Menunggu Konfirmasi

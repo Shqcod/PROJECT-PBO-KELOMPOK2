@@ -11,7 +11,7 @@ public class RegisterPanel extends JPanel {
     private JPasswordField passwordField;
     private JPasswordField confirmPassField;
     private JComboBox<String> roleComboBox;
-    private JButton registerButton;
+    private JButton registerButton, backButton;
 
     public RegisterPanel(CardLayout cardLayout, JPanel mainPanel) {
         this.cardLayout = cardLayout;
@@ -24,7 +24,7 @@ public class RegisterPanel extends JPanel {
 
 
         RoundedPanel formPanel = new RoundedPanel(30, 30);
-        formPanel.setPreferredSize(new Dimension(270, 360));
+        formPanel.setPreferredSize(new Dimension(270, 400));
         formPanel.setBackground(Color.WHITE);
         formPanel.setLayout(new BoxLayout(formPanel, BoxLayout.Y_AXIS));
         formPanel.setBorderColor(Color.LIGHT_GRAY);
@@ -34,8 +34,9 @@ public class RegisterPanel extends JPanel {
         formPanel.add(Box.createRigidArea(new Dimension(0, 25)));
         
         JLabel titleLabel = new JLabel("Daftar Akun");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        titleLabel.setForeground(new Color(65,195,100));
         formPanel.add(titleLabel);
         formPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
@@ -62,10 +63,9 @@ public class RegisterPanel extends JPanel {
         roleComboBox = new JComboBox<>(new String[]{"Customer", "Admin"});
         roleComboBox.setMaximumSize(new Dimension(200, 30));
         formPanel.add(roleComboBox);
-        formPanel.add(Box.createRigidArea(new Dimension(0, 30)));
+        formPanel.add(Box.createRigidArea(new Dimension(0, 25)));
 
-
-        registerButton = FormComponents.createButton("Daftar Akun", Color.WHITE, e -> {
+        registerButton = FormComponents.createButton("Daftar Akun", new Color(65, 195, 100), e -> {
             String username = usernameField.getText();
             String password = new String(passwordField.getPassword());
             String confirmPass = new String(confirmPassField.getPassword());
@@ -87,14 +87,21 @@ public class RegisterPanel extends JPanel {
                     saveAccountData(newAkun);
                     JOptionPane.showMessageDialog(this, "Akun berhasil dibuat!");
     
-                    clearFields();;
+                    clearFields();
                     cardLayout.show(mainPanel, "Login");} 
             
                 }
                 
         });
-        registerButton.setForeground(new Color(65, 195, 100));
+        registerButton.setForeground(Color.WHITE);
         formPanel.add(registerButton);
+        formPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+
+        backButton = FormComponents.createDashboardButton("Kembali", Color.WHITE, e -> {
+            cardLayout.show(mainPanel, "Login");
+        });
+        backButton.setForeground(new Color(65, 196, 100));
+        formPanel.add(backButton);
         formPanel.add(Box.createRigidArea(new Dimension(0, 5)));
 
         GridBagConstraints gbc = new GridBagConstraints();
