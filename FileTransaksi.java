@@ -56,4 +56,52 @@ public class FileTransaksi {
             e.printStackTrace();
         }
     }
+
+    public static ArrayList<Transaksi> bacaTransaksiCustomer(String filePath, String customerUsername) {
+        ArrayList<Transaksi> transaksiList = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                // Membaca data transaksi dan memecah berdasarkan separator ';'
+                String[] parts = line.split(";");
+    
+                // Pastikan ada cukup data
+                if (parts.length == 6) {
+                    String idTransaksi = parts[0];
+                    String username = parts[1];  // Username customer yang membuat transaksi
+                    String metodePembayaran = parts[2];
+                    String barangDibeli = parts[3];  // Data barang dalam format string
+                    double totalHarga = Double.parseDouble(parts[4]);
+                    String keterangan = parts[5];
+    
+                    // Hanya ambil transaksi milik customer yang sedang login
+                    if (username.equals(customerUsername)) {
+                        // Parse barang yang dibeli
+                        ArrayList<Barang> barangDibeliList = new ArrayList<>();
+                        String barangCleaned = barangDibeli.replace("[","").replace("]","");
+                        String[] barangArray = barangDibeli.split(",");
+                        for (String barang : barangArray) {
+                            String[] barangData = barang.replace("[", "").replace("]", "").split("-");
+                            if (barangData.length == 5) {
+                                int idBarang = Integer.parseInt(barangData[0]);
+                                String namaBarang = barangData[1];
+                                double hargaBarang = Double.parseDouble(barangData[2]);
+                                int jumlahBarang = Integer.parseInt(barangData[3]);
+                                String kategoriBarang = barangData[4];
+                                barangDibeliList.add(new Barang(idBarang, namaBarang, hargaBarang, jumlahBarang, kategoriBarang));
+                            }
+                        }
+    
+                        // Membuat objek transaksi untuk customer
+                        Akun customer = new Akun("", username, "", "customer"); // Username sudah cukup untuk membedakan customer
+                        transaksiList.add(new Transaksi(idTransaksi, customer, barangDibeliList, metodePembayaran, totalHarga, keterangan));
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return transaksiList;
+    }
+    
 }

@@ -1,2 +1,0 @@
-TRX1732722537081;Customer;QRIS;[Blender Philips HR,650000.00,1],;650000.00;Sukses
-TRX1732730902555;Hans;Bank Transfer;[Blender Philips HR,650000.00,12],[Vacuum Cleaner Xiaomi,890000.00,1],[Laptop Lenovo Ideapad,8500000.00,1],;17190000.00;Sukses

@@ -99,6 +99,7 @@ public class AdminTabelTransaksi extends JPanel {
             JOptionPane.showMessageDialog(this, "Pilih transaksi untuk dikonfirmasi.", "Peringatan", JOptionPane.WARNING_MESSAGE);
         }
     }
+ 
 
      // Fungsi untuk memperbarui keterangan transaksi di file
     private void updateKeterangan(String idTransaksi) {

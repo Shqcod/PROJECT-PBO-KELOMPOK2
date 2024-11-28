@@ -8,13 +8,13 @@ public class Transaksi {
     private String idTransaksi;
     private double totalHargaBarang; // Tambahkan atribut ini
 
-    public Transaksi(String idTransaksi, Akun customer, ArrayList<Barang> barangDibeli, String metodePembayaran, double getTotalHargaBarang, String keterangan) {
+    public Transaksi(String idTransaksi, Akun customer, ArrayList<Barang> barangDibeli, String metodePembayaran, double totalHarga, String keterangan) {
         this.idTransaksi = idTransaksi; // Sesuai parameter
         this.customer = customer;
-        this.barangDibeli = new ArrayList<>(barangDibeli);
+        this.barangDibeli = new ArrayList<>(barangDibeli); // Properti diatur lebih dulu
         this.metodePembayaran = metodePembayaran;
-        this.keterangan = "Menunggu Konfirmasi"; // Nilai default
-        this.totalHargaBarang = hitungTotalHarga(); // Hitung total harga barang
+        this.keterangan = keterangan; // Nilai default
+        this.totalHargaBarang = setTotalHargaBarang(); // Hitung setelah barangDibeli diatur
     }
 
     // Getter untuk atribut baru
@@ -48,7 +48,7 @@ public class Transaksi {
     }
 
     // Method untuk menghitung total harga barang
-    private double hitungTotalHarga() {
+    private double setTotalHargaBarang() {
         double total = 0;
         for (Barang barang : barangDibeli) {
             total += barang.getHarga() * barang.getStok(); // Harga * jumlah barang
@@ -58,5 +58,23 @@ public class Transaksi {
 
     public void konfirmasiKeterangan(String keterangan){
         this.keterangan = "Sukses";
+    }
+
+    public void updateTransaksi(ArrayList<Barang> barangBaru, String keteranganBaru) {
+        this.barangDibeli = barangBaru;
+        this.totalHargaBarang = setTotalHargaBarang(); // Hitung ulang total harga
+        this.keterangan = keteranganBaru;
+    }
+
+    @Override
+    public String toString() {
+        return "Transaksi{" +
+                "idTransaksi='" + idTransaksi + '\'' +
+                ", customer='" + customer.getUsername() + '\'' +
+                ", metodePembayaran='" + metodePembayaran + '\'' +
+                ", totalHarga=" + totalHargaBarang +
+                ", keterangan='" + keterangan + '\'' +
+                ", barangDibeli=" + barangDibeli +
+                '}';
     }
 }

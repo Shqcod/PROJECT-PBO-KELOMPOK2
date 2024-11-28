@@ -213,16 +213,16 @@ public class CustomerBelanjaPanel extends JPanel {
                 JOptionPane.showMessageDialog(this, "Metode pembayaran tidak valid!", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
         }
-    
-        // Buat Invoice
+
         Invoice invoice = new Invoice(transaksi, pembayaran);
+    
     
         // Simpan transaksi ke file
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("transaksi.txt", true))) {
             StringBuilder barangString = new StringBuilder();
     
             for (Barang barang : keranjang) {
-                barangString.append(String.format("[%s,%.2f,%d],",
+                barangString.append(String.format("[%s,%.2f,%d]",
                         barang.getNama(), barang.getHarga(), barang.getStok()));
             }
     
@@ -237,7 +237,7 @@ public class CustomerBelanjaPanel extends JPanel {
     
         // Tampilkan pesan sukses dan invoice
         JOptionPane.showMessageDialog(this, 
-            "Checkout berhasil, tunggu konfirmasi anda",
+            "Checkout berhasil\n" + invoice.toString(),
             "Sukses",
             JOptionPane.INFORMATION_MESSAGE);
         

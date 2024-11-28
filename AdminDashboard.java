@@ -31,6 +31,7 @@ public class AdminDashboard extends JPanel {
         JLabel WelcomeLabel = new JLabel("Admin Dashboard");
         WelcomeLabel.setFont(new Font("Arial", Font.BOLD, 16));
         WelcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        WelcomeLabel.setForeground(new Color(65, 195, 100));
         menuPanel.add(WelcomeLabel);
         menuPanel.add(Box.createRigidArea(new Dimension(0, 25)));
 

@@ -32,9 +32,10 @@ public class CustomerDashboard extends JPanel {
 
         menuPanel.add(Box.createRigidArea(new Dimension(0, 25)));
 
-        JLabel welcomeLabel = new JLabel("Selamat Datang" + currentUser.getUsername());
+        JLabel welcomeLabel = new JLabel("Selamat Datang, " + currentUser.getUsername());
         welcomeLabel.setFont(new Font("Arial", Font.BOLD, 16));
         welcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        welcomeLabel.setForeground(new Color(65, 195, 100));
         menuPanel.add(welcomeLabel);
         menuPanel.add(Box.createRigidArea(new Dimension(0, 25)));
 
@@ -44,14 +45,16 @@ public class CustomerDashboard extends JPanel {
             cardPanel.add(daftarBarangCustomer, "DaftarBarangCustomer");
             cardLayout.show(cardPanel, "DaftarBarangCustomer");
         });
-        btnTransaksi = FormComponents.createDashboardButton("Riwayat Transaksi", new Color(65, 195, 100), e -> {
-            DaftarBarangCustomer daftarBarangCustomer = new DaftarBarangCustomer(cardPanel, cardLayout, frame, currentUser);
-            cardPanel.add(daftarBarangCustomer, "DaftarBarangCustomer");
-            cardLayout.show(cardPanel, "DaftarBarangCustomer");
-        });
+        
+        // btnTransaksi = FormComponents.createDashboardButton("Riwayat Transaksi", new Color(65, 195, 100), e -> {
+        //     CustomerRiwayatTransaksi customerRiwayatTransaksi = new CustomerRiwayatTransaksi(cardPanel, cardLayout, frame, currentUser);
+        //     cardPanel.add(customerRiwayatTransaksi, "CustomerRiwayatTransaksi");
+        //     cardLayout.show(cardPanel, "CustomerRiwayatTransaksi");
+        // });
 
         menuPanel.add(btnBelanja);
         menuPanel.add(Box.createRigidArea(new Dimension(0, 25)));
+        //menuPanel.add(Box.createRigidArea(new Dimension(0, 25)));
 
         // Tombol Keluar
         btnKeluar = FormComponents.createDashboardButton("Keluar", new Color(65, 195, 100), e -> {
